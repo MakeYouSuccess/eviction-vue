@@ -1,0 +1,230 @@
+<template>
+  <div class="mx-auto secondary--text">
+    <v-btn
+      color="info"
+      icon
+      class="float-right ma-8 btn--plain"
+      @click="$emit('close:form')"
+    >
+      <v-icon>mdi-close</v-icon>
+    </v-btn>
+
+    <div
+      style="width: 80%"
+      class="pt-10 pb-4 mx-auto text-left"
+    >
+      <div class="custom-title pt-8 pb-4">
+        Documents
+      </div>
+      <div class="pb-6">
+        You may upload documents that will support your claim. This will allow
+        you to keep all documents in this case in order. Select “No” to upload
+        documents to your case file at a later time. Select “Yes” if you are
+        ready to upload them now.
+      </div>
+
+      <div class="font-weight-medium mb-2">
+        Example of types of documents to upload:
+      </div>
+      <div
+        v-for="item in documentTypes"
+        :key="item"
+        class="d-flex align-center ml-6 pa-2"
+      >
+        <div class="triangle-small mr-2" />
+        <div>{{ item }}</div>
+      </div>
+
+      <div class="py-4 pt-8">
+        <v-btn
+          rounded
+          :color="uploadDocs === 'no' ? 'primary' : 'info_light'"
+          dark
+          class="px-12 capital--btn"
+          :class="{ 'secondary--text': uploadDocs !== 'no' }"
+          depressed
+          @click="
+            () => {
+              uploadDocs = 'no';
+              valid = true;
+              next();
+            }
+          "
+        >
+          no
+        </v-btn>
+        <v-btn
+          rounded
+          :color="uploadDocs === 'yes' ? 'primary' : 'info_light'"
+          dark
+          class="px-12 ml-4 capital--btn"
+          :class="{ 'secondary--text': uploadDocs !== 'yes' }"
+          depressed
+          @click="
+            () => {
+              uploadDocs = 'yes';
+              valid = true;
+              next();
+            }
+          "
+        >
+          yes
+        </v-btn>
+      </div>
+      <!-- <v-card v-for="document in documents" :key="document.fileName" outlined class="my-4 mx-12 pa-1 rounded-card">
+                <v-row align="center">
+                <v-col cols="2">
+                <i :class="`info--text icofont-file-${fileExtension(document.fileName)} icofont-2x`"></i>
+                </v-col>
+                <v-col cols="7" class="secondary--text text-left">
+                    <div class="font-weight-medium">{{document.name}}</div>
+                    <div style="font-size: 0.8rem">{{document.fileName}}</div>
+                </v-col>
+                <v-col cols="1">
+                <v-btn color="accent" class="btn--plain" text>view</v-btn>
+                </v-col>
+                <v-col cols="2">
+                <v-btn color="accent" class="btn--plain" icon><i class="accent--text icofont-trash"></i></v-btn>
+                </v-col>
+                </v-row>
+            </v-card> -->
+    </div>
+
+    <v-card-actions
+      style="background-color: #fafbfc; border-radius: 0px 0px 10px 10px"
+      class="justify-end py-4 pr-12 mt-12"
+    >
+      <v-btn
+        rounded
+        color="accent_light"
+        class="mb-2 mt-4 btn--plain capital--btn"
+        text
+        @click="back"
+      >
+        go back
+      </v-btn>
+      <v-btn
+        rounded
+        color="accent_light"
+        class="px-8 mb-2 mt-4 white--text capital--btn"
+        depressed
+        @click="next"
+      >
+        continue
+      </v-btn>
+    </v-card-actions>
+
+    <v-dialog
+      v-model="documentDialog"
+      value="''"
+      max-width="700px"
+    >
+      <new-document-dialog @add:files="addFiles" />
+    </v-dialog>
+  </div>
+</template>
+
+<script>
+import NewDocumentDialog from "@/components/dialogs/NewDocumentDialog";
+export default {
+  name: "Documents",
+  components: {
+    NewDocumentDialog,
+  },
+  data() {
+    return {
+      documents: [],
+      documentTypes: ["Lease", "Ledger", "Landlord-Tenant Commuication"],
+      uploadDocs: "",
+      documentDialog: false,
+    };
+  },
+  computed: {},
+  activated() {
+    window.scrollTo(0, 0);
+  },
+  methods: {
+    next() {
+      if (this.uploadDocs === "yes") {
+        this.$router.push({ name: "vc-upload-documents" });
+      } else {
+        // this.$emit("next");
+        this.$emit("update", {
+          data: {},
+          steps: { document: "completed" },
+        });
+        this.$router.push({ name: "vc-confirmation" });
+      }
+      // this.$emit('update:data', {documents: this.documents})
+    },
+    back() {
+      this.$router.push({ name: "vc-legal-fees" });
+    },
+    addFiles(files) {
+      for (const file of files) {
+        this.documents.push(file);
+      }
+      this.documentDialog = false;
+    },
+    fileExtension(fileName) {
+      const fileExt = fileName.split(".")[1];
+      console.log(fileExt);
+      switch (fileExt) {
+        case "doc":
+        case "docx":
+          return "word";
+        case "pdf":
+          return "pdf";
+        case "csv":
+        case "xlsx":
+          return "spreadsheet";
+        case "png":
+        case "jpg":
+        case "jpeg":
+        case "img":
+          return "image";
+        default:
+          return "text";
+      }
+    },
+  },
+};
+</script>
+
+<style>
+/* .right-arrow-menu {
+  margin-top: 40px;
+  contain: initial;
+  overflow: visible;
+}
+
+.right-arrow-menu::before {
+  position: absolute;
+  content: "";
+  top: 0;
+  right: 10px;
+  transform: translateY(-100%);
+  width: 10px; 
+  height: 13px; 
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 13px solid #fff;
+} */
+
+.my-menu {
+  margin-top: 36px;
+  overflow: visible;
+}
+
+.my-menu .right-arrow-menu::before {
+  right: 10px;
+  top: -10px;
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 10px 10px 10px;
+  border-color: transparent transparent #fff transparent;
+}
+</style>
