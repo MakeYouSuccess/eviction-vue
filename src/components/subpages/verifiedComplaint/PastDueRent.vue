@@ -197,7 +197,6 @@ export default {
         return this.$dayjs();
       }
       let lastPeriod = this.rentsDue[this.rentsDue.length - 1].timePeriod;
-      console.log("lastPeriod: ", lastPeriod);
 
       if (Array.isArray(lastPeriod)) {
         return lastPeriod[1];
@@ -262,28 +261,24 @@ export default {
             nextDay = this.$dayjs(
               this.rentsDue[this.rentsDue.length - 1].timePeriod[1]
             ).subtract(7, "days");
-          }
-          console.log("nd", nextDay);
+          }          
           return [
             nextDay.format("MMMM D, YYYY"),
             nextDay.add(6, "days").format("MMMM D, YYYY"),
           ];
         case "Semi-monthly":
-          today = this.$dayjs();
-          console.log("today", today);
+          today = this.$dayjs();          
 
           if (this.rentsDue.length === 0) {
             if (today.date() < parseFloat(this.rentDueBy[0])) {
-              today = today.add(1, "months");
-              console.log("new today", today);
+              today = today.add(1, "months");              
               lastStartDate = this.$dayjs([
                 today.year(),
                 today.month(),
                 parseFloat(this.rentDueBy[1]),
               ]);
             } else if (today.date() < parseFloat(this.rentDueBy[1])) {
-              today = today.add(1, "months");
-              console.log("new today", today);
+              today = today.add(1, "months");              
               lastStartDate = this.$dayjs([
                 today.year(),
                 today.month(),
@@ -291,7 +286,6 @@ export default {
               ]);
             } else if (today.date() > parseFloat(this.rentDueBy[1])) {
               today = today.add(2, "months");
-              console.log("new today", today);
               lastStartDate = this.$dayjs([
                 today.year(),
                 today.month(),

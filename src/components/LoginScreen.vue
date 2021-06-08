@@ -160,8 +160,8 @@ export default {
     methods: {
       async login(){
         this.$store.commit('set_auth_error', '')
-        let msg = await this.$authHelpers.login(this.email, this.password)
-        console.log(msg)
+        let msg = await this.$authHelpers.login(this.email, this.password);
+        console.log('msg', msg);
       }
     }
 

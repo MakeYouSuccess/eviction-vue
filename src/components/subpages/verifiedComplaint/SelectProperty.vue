@@ -68,7 +68,7 @@
                 }}</span>
               </v-list-item>
             </v-list-item-group>
-            <v-list-item class="py-1">
+            <v-list-item v-else class="py-1">
               <span class="secondary--text">No property found.</span>
             </v-list-item>
           </v-list>
@@ -203,8 +203,7 @@ export default {
   created() {
     this.loadProperties();
   },
-  activated() {
-    console.log("activated");
+  activated() {    
     if (this.$route.query.status === "started") {
       this.$emit("load:data", this.$route.query.caseId);
       this.loading = true;
@@ -216,8 +215,7 @@ export default {
       this.property = this.$store.getters.currentProperty;
     } else if (localStorage.getItem("property")) {
       this.choseProperty = true;
-      this.property = JSON.parse(localStorage.getItem("property"));
-      console.log("p", this.property);
+      this.property = JSON.parse(localStorage.getItem("property"));      
     }
 
     window.scrollTo(0, 0);
@@ -232,15 +230,15 @@ export default {
           },
         })
         .then((r) => r.data)
-        .then((data) => {
-          console.log(data);
-          this.allProperties = data;
+        .then((data) => {          
+          this.allProperties = this.$route.query.addUnit ? data.filter(property => property.unitNo) : data;
           this.items = data;
           this.loading = false;
         })
-        .catch((e) => {
-          console.log("error loading properties", e);
-          this.loading = false;
+        .catch((e) => {          
+          if(e) {
+            this.loading = false;
+          }          
         });
     },
     next() {
@@ -252,8 +250,7 @@ export default {
           })
           .then((r) => {
             //TODO: loadProperties from store
-            this.loadProperties();
-            console.log("new property: ", r.data);
+            this.loadProperties();       
             this.chosenProperty = r.data.propertyId;
             this.property = r.data;
 

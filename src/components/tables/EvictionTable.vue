@@ -313,8 +313,7 @@ export default {
           //   class: 'header-text secondary--text font-weight-medium',
           //   align: 'left',
           //   // width: '10%',
-          //   // filter: value => {
-          //   //   console.log(value)
+          //   // filter: value => {          
           //   //   if (!this.tableFilters.nt) return true
           //   //   return value
           //   //   //return value.toUpperCase().includes('E')
@@ -442,10 +441,8 @@ export default {
     userHeaders(){
       return  this.$store.getters.evictionHeaders
     },
-    cases(){
-      console.log(this.$store.getters.cases)
+    cases(){      
       return  this.$store.getters.cases
-      
     },
    computedHeaders(){
       return this.headers.filter(header => this.userHeaders.includes(header.value))  
@@ -461,20 +458,17 @@ export default {
    }
    
   },
-   created(){
-     console.log('act')
+   created(){     
     //  this.$store.dispatch('loadCases')
    },
   methods: {
      actionDecision(item, action){
        if (action.type === 'complete'){
          this.$router.push({ path: JSON.parse(action.details).route, query: { status: 'started', caseId: item.id} })
-       } else {
-       console.log(item)
+       } else {       
        this.dialogCase = item
        this.dialogAction = item.action
-       this.dialogName = `${item.action.api}Dialog`
-       console.log(this.dialogName)
+       this.dialogName = `${item.action.api}Dialog`       
        this.dialogOpen = true
        }
       

@@ -559,8 +559,7 @@ export default {
     },
   },
   activated() {
-    window.scrollTo(0, 0);
-    console.log(this.rentAmount);
+    window.scrollTo(0, 0);    
     if (this.section8 === "Yes") {
       this.checklist.lateCharges = false;
       this.checklist.other = false;
@@ -568,9 +567,6 @@ export default {
   },
   methods: {
     calculateLateChargePeriods(calculateInfoArray) {
-      console.log(calculateInfoArray);
-      
-
       calculateInfoArray.map(calculateInfo => {
         let amount = 0;
         switch (calculateInfo.type) {
@@ -596,7 +592,6 @@ export default {
             amount = 0;
         }
         
-        console.log('pastDueRent', this.pastDueRent);
         this.lateChargesOpen = false;
         for (const period of this.pastDueRent) {
           if (calculateInfo.type === "daily") {
@@ -615,7 +610,6 @@ export default {
           });
         }
       });
-      console.log(this.lateCharges);
     },
     addCharge() {
       this.lateCharges.push({
@@ -642,8 +636,6 @@ export default {
     updateDates(dates, row) {
       row.timePeriod = dates;
       row.timePeriodDisplay = this.formatDates(dates);
-      console.log(dates);
-      console.log(row);
     },
     formatDates(dates) {
       if (Array.isArray(dates)) {
@@ -651,7 +643,6 @@ export default {
         const [year2, month2, day2] = dates[1].split("-");
         return `${month1}/${day1}/${year1} - ${month2}/${day2}/${year2}`;
       }
-      console.log("not arr");
       const [year1, month1, day1] = dates.split("-");
       return `${month1}/${day1}/${year1}`;
     },

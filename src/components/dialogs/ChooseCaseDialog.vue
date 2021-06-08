@@ -99,7 +99,6 @@ export default {
     })
     .then(r => r.data)
     .then(data => {
-      console.log(data)
       this.evictions = data
     })
   },

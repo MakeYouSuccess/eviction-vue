@@ -77,8 +77,7 @@ export default {
           //convert bytes to MB
           this.uploadingFiles[file.name].uploadProgressBytes = Math.round(((bytesSent/1048576) + Number.EPSILON) * 100) / 100
       },
-      fileAdded(file){
-        console.log('fileAdded',file)
+      fileAdded(file){        
         this.addedFile = file
       },
       sendingEvent (file, xhr, formData) {
@@ -87,8 +86,8 @@ export default {
         formData.append('docName', this.documentName)
       },
       uploaded(files, response){
-          console.log(files)
-          console.log(response)
+        console.log(files)
+        console.log(response)
       },
       dropzoneComplete(){
           this.uploading = false

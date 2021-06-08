@@ -57,8 +57,7 @@ export const useAuth0 = ({
             onRedirectCallback(appState);
           }
         } catch (e) {
-          this.error = e;
-          console.log(e)
+          this.error = e;          
         } finally {
           // Initialize our internal authentication state
           this.isAuthenticated = await this.auth0Client.isAuthenticated();
@@ -71,28 +70,47 @@ export const useAuth0 = ({
           // store.commit('set_user', {
           //   ...this.user,
           //   id: this.user.sub
-          // });
-          console.log('user', this.user);
-          const auth0Id = this.user.sub
-          console.log('auth0',auth0Id)          
+          // });          
+          const auth0Id = this.user.sub;
+
+          /* Handle showing the Eviction Moratorium banner */
+          const closed_eviction_banner_time = localStorage.getItem('closed_eviction_banner_time');
+          if (closed_eviction_banner_time === null) {
+            store.commit('set_eviction_banner', true);
+          } else {
+            const today = new Date().toISOString().slice(0, 10);
+            const diffInMs   = new Date(today) - new Date(closed_eviction_banner_time)
+            const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+            
+            if (diffInDays >= 7) {
+              store.commit('set_eviction_banner', true);
+            }            
+          }
+          
+          /* Handle showing the Upcoming Features banner */
+          const show_upcoming_banner = localStorage.getItem("show_upcoming_banner");
+          if(JSON.parse(show_upcoming_banner)) {
+            store.commit('set_upcoming_banner', true);
+          }
+          
           await Axios.get(`${process.env.VUE_APP_URL}/clientByAuth0Id`, {
                     params: {
                         auth0Id: auth0Id
                     }
                 })
                 .then(r => r.data)
-                .then(async data => {
-                    console.log('db user data', data)
+                .then(async data => {                
                     if(!data) {
-                      await this.createDBUser(this.user);
+                      await this.createDBUser(this.user);                      
+                      store.commit('set_disclaimer', true);
                     }
                     else {
-                      store.commit('set_user', data)
+                      store.commit('set_user', data);
+                      store.commit('set_disclaimer', false);                                        
                     }
                     store.dispatch('initialSetup')})
                 }
-            this.loading = false;
-            console.log('loading',this.loading)
+            this.loading = false;            
           }
       },
     methods: {
@@ -104,8 +122,7 @@ export const useAuth0 = ({
         }
         await Axios.post(`${process.env.VUE_APP_URL}/register-user`, signupDetails)
           .then(r => r.data)
-          .then(async data => {
-              console.log('registered user id', data);
+          .then(async data => {              
               if (data.err){throw data.err}
               await Axios.get(`${process.env.VUE_APP_URL}/clientByAuth0Id`, {
                 params: {
@@ -118,9 +135,7 @@ export const useAuth0 = ({
                   store.dispatch('initialSetup')
                })
             })
-          .catch(e => {
-            console.log(e);
-            throw e})
+          .catch(e => { throw e })
       },
         /** Authenticates the user using a popup window */
         async loginWithPopup(o) {
@@ -147,11 +162,9 @@ export const useAuth0 = ({
           // store.commit('set_user', {
           //   ...this.user,
           //   id: this.user.sub
-          // });
-          console.log('user', this.user)
+          // });          
           this.isAuthenticated = true;
-        } catch (e) {
-          console.log(e)
+        } catch (e) {          
           this.error = e;
         } finally {
           this.loading = false;
@@ -176,6 +189,7 @@ export const useAuth0 = ({
       },
       /** Logs the user out and removes their session on the authorization server */
       logout(o) {
+        localStorage.setItem("show_upcoming_banner", true);
         store.commit('set_auth', false);
         return this.auth0Client.logout(o);
       }

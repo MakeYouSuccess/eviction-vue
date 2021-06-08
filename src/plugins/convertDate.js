@@ -10,11 +10,9 @@ export default {
               }
               return ''
         }
-        Vue.prototype.convertDateWithSlashes = (date) =>{
-            console.log(date)
+        Vue.prototype.convertDateWithSlashes = (date) =>{            
             if (date){
-                // var d = new Date(date);
-                // console.log(d)
+                // var d = new Date(date);                
                 // var day = d.getDate()
                 // var month = d.getMonth()+1 //months are counted starting from 0
                 // var yr = d.getFullYear()

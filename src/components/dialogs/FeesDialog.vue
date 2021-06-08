@@ -189,14 +189,12 @@ export default {
       });
       this.close();
     },
-    updateDates(dates) {
-      console.log(dates);
+    updateDates(dates) {      
       this.timePeriod = dates;
       this.timePeriodDisplay = this.formatDates(dates);
     },
     formatDates(dates) {
-      if (Array.isArray(dates)) {
-        console.log(dates[0]);
+      if (Array.isArray(dates)) {        
         // const [year1, month1, day1] = dates[0].split("-");
         // const [year2, month2, day2] = dates[1].split("-");
         // return `${month1}/${day1}/${year1} - ${month2}/${day2}/${year2}`;
@@ -205,8 +203,7 @@ export default {
         return `${date1.format("MMMM D, YYYY")} - ${date2.format(
           "MMMM D, YYYY"
         )}`;
-      }
-      console.log("not arr");
+      }      
       return this.$dayjs(dates.format("MMMM D, YYYY"));
     },
   },

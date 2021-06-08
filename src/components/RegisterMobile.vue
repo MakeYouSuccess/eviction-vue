@@ -207,16 +207,12 @@ export default {
 
         await this.$http.post(`${process.env.VUE_APP_URL}/register`, signupDetails)
         .then(r => r.data)
-        .then(data => {
-          console.log(data)
+        .then(data => {          
           if (data.err){throw data.err}
-          this.clientId = data
-          console.log('clientId',this.clientId)
+          this.clientId = data          
           localStorage.removeItem('client')
           })
-        .catch(e => {
-          console.log(e);
-          throw e})
+        .catch(e => { throw e })
 
         //save info with the client's clientId (data)
         // if the unregistered user created a document
@@ -226,8 +222,7 @@ export default {
               clientId: this.clientId
             })
             .then(r => r.data)
-            .then(data => {
-              console.log(data)
+            .then(data => {              
               this.property = data
             })
 
@@ -244,21 +239,18 @@ export default {
                 docInfo: doc,
                 clientId: this.clientId,
             }).then(r => r.data)
-            .then(data=>{
-                //data should be the id of the previously created item
-                console.log('itemId', data)
-                this.$http.post(`${process.env.VUE_APP_URL}/cart`, {
-                itemId: data,
-                clientId: this.clientId,
-                itemName: docName,
-                itemTableName: docType
+            .then(data=>{                                
+              this.$http.post(`${process.env.VUE_APP_URL}/cart`, {
+              itemId: data,
+              clientId: this.clientId,
+              itemName: docName,
+              itemTableName: docType
+              })
+              .then(r => r.data)
+              .then(data => {                    
+                  this.$store.commit('update_cart', data)
                 })
-                .then(r => r.data)
-                .then(data => {
-                    console.log(data)
-                    this.$store.commit('update_cart', data)
-                    })
-                })
+              })
           
           localStorage.removeItem('document')
           localStorage.removeItem('document_type')

@@ -97,7 +97,6 @@ export default {
   },
   methods: {
     actionDecision() {
-      console.log("action");
       this.dialogAction = this.currentCase.actions[0];
       this.dialogName = `${this.currentCase.actions[0].api}Dialog`;
       this.dialogOpen = true;

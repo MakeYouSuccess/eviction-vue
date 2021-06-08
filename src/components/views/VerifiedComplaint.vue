@@ -427,8 +427,7 @@ export default {
           },
         })
         .then((r) => r.data)
-        .then((data) => {
-          console.log("courtInfo", data);
+        .then((data) => {          
           this.courtInfo = data;
         });
 
@@ -476,8 +475,7 @@ export default {
       this.cancelDialog = false;
       this.$router.push("/");
     },
-    loadData(caseId) {
-      console.log("load data");
+    loadData(caseId) {      
       this.$http
         .get(`${process.env.VUE_APP_URL}/case/${caseId}`)
         .then((r) => r.data)
@@ -536,8 +534,7 @@ export default {
           // this.case.documents: [],
           this.case.attorneyId = data.attorneyId;
           this.case.serviceId = data.servicePlanId;
-          this.case.filingPlan = data.filingPlan;
-          console.log("loaded data", data);
+          this.case.filingPlan = data.filingPlan;          
         });
     },
     propertyCompleted(property) {
@@ -546,24 +543,16 @@ export default {
     },
     update({ data, steps }) {
       for (const key in data) {
-        console.log("data", data);
-
         this.case[key] = data[key];
       }
       this.save();
       for (const key in steps) {
-        console.log("steps", steps);
-
         this.steps[key].status = steps[key];
       }
     },
     updateProperty({ steps }) {
-      console.log("allSteps", steps);
       for (const key in steps) {
-        console.log("steps", key);
-
-        this.steps.property.children[key].status = steps[key];
-        console.log(this.steps.property.children);
+        this.steps.property.children[key].status = steps[key];        
       }
     },
     submit() {
@@ -576,8 +565,7 @@ export default {
       this.saving = true;
 
       this.$store.commit("set_current_property", {});
-      if (this.$store.getters.isAuthenticated) {
-        console.log("user logged in... saving to database...");
+      if (this.$store.getters.isAuthenticated) {        
         if (!this.case.id) {
           //TODO: change action when in api if submitted or not
           this.$http
@@ -589,8 +577,7 @@ export default {
               submitted: submitted,
             })
             .then((r) => r.data)
-            .then((data) => {
-              console.log("successfully saved caseId:", data);
+            .then((data) => {              
               this.case.id = data;
               this.saving = false;
             });
@@ -614,8 +601,7 @@ export default {
         //     clientId: this.client.id
         // }).then(r => r.data)
         // .then(data=>{
-        //     //data should be the id of the previously created item
-        //     console.log('itemId', data)
+        //     //data should be the id of the previously created item        
         //     this.$http.post(`${process.env.VUE_APP_URL}/cart`, {
         //     itemId: data,
         //     clientId: this.client.id,
@@ -694,8 +680,7 @@ export default {
         date: moment().format("MM/DD/YYYY"),
         // signerType: this.signerType(),
         signerType: this.case.signatureBlock,
-      };
-      console.log("template", templateData);
+      };      
       let templateName = `verified_complaint_nonpayment`;
       this.renderTemplate(templateData, templateName, preview, showDialog);
     },
@@ -733,8 +718,6 @@ export default {
         !this.preview ||
         !this.compareObjects(this.oldTemplateData, templateData)
       ) {
-        console.log("in rendering data");
-
         //if template data is the not same as the last time, we will create a new pdf
         this.$http
           .post(`${process.env.VUE_APP_URL}/render_template`, {
@@ -743,11 +726,9 @@ export default {
             watermark: preview,
           })
           .then((response) => {
-            if (!response.data) throw "no data";
-            console.log("summons-data", response.data);
+            if (!response.data) throw "no data";            
             const linkSource = `data:application/pdf;base64,${response.data}`;
-            this.pdf = linkSource;
-            console.log("temp", templateData);
+            this.pdf = linkSource;            
             this.oldTemplateData = templateData;
             if (preview && showDialog) {
               //if preview
@@ -756,17 +737,13 @@ export default {
               this.createLink(linkSource);
             }
           })
-          .catch((err) => {
-            console.log("err from generating pdf", err);
+          .catch((err) => {            
             if (err === "no data") {
               this.renderTemplate(templateData, templateName, preview);
             }
           });
-      } else if (showDialog) {
-        console.log("showdialog was true");
-
+      } else if (showDialog) {        
         //if template data is the not same as the last time, we will preview and will show old pdf
-
         this.previewDialog = true;
       }
     },
@@ -791,7 +768,6 @@ export default {
           }
         }
       }
-      console.log("same pdf");
       return true;
     },
     back() {
@@ -813,9 +789,7 @@ export default {
       return this.case.property.deedNames.join(", ");
     },
     calculateNextAmount() {
-      if (!this.rentAmount) return "$0.00";
-      console.log(this.feesTotal);
-      console.log(this.rentAmount);
+      if (!this.rentAmount) return "$0.00";      
       return this.feesTotal + this.rentAmount;
     },
     dayToNumber(day) {
@@ -846,7 +820,6 @@ export default {
       for (const key in newData) {
         this.case[key] = newData[key];
       }
-      console.log(this.case);
     },
     async createPreview() {
       await this.createComplaint(true);
@@ -961,7 +934,6 @@ export default {
     compileTenants() {
       let tenants = "";
       if (this.case.tenantCompanyName) {
-        console.log("inif");
         return this.case.tenantCompanyName;
       }
       for (const tenant of this.case.tenants) {
@@ -981,31 +953,26 @@ export default {
     //     this.case.pastDueRent.forEach(rent => {
     //         if(rent.amount){
     //             total += parseFloat(rent.amount)
-    //             console.log('prd', total)
     //         }
     //     });
     //     this.case.utilities.forEach(rent => {
     //         if(rent.amount){
-    //             total += parseFloat(rent.amount)
-    //             console.log('u', total)
+    //             total += parseFloat(rent.amount)    
     //         }
     //     });
     //     this.case.lateCharges.forEach(rent => {
     //         if(rent.amount){
-    //             total += parseFloat(rent.calculatedAmount)
-    //             console.log('lc', total)
+    //             total += parseFloat(rent.calculatedAmount)    
     //         }
     //     });
     //     this.case.fees.forEach(rent => {
     //         if(rent.amount){
-    //             total += parseFloat(rent.amount)
-    //             console.log('f', total)
+    //             total += parseFloat(rent.amount)    
     //         }
     //     });
     //     this.case.otherCharges.forEach(rent => {
     //         if(rent.amount){
-    //             total += parseFloat(rent.amount)
-    //             console.log('oc', total)
+    //             total += parseFloat(rent.amount)    
     //         }
     //     });
     //     if (this.legalFeesPermitted){
@@ -1013,7 +980,6 @@ export default {
     //             return accum += parseFloat(this.total(category.costs))
     //         },0)
     //     }
-    //     console.log('total', total)
     //     return total
     // },
 
@@ -1147,8 +1113,7 @@ export default {
               today.add(1, "months").month(),
               parseFloat(this.case.rentDueBy),
             ]);
-            this.rentDueBeforeTrial = dueDate;
-            console.log("duedate", dueDate);
+            this.rentDueBeforeTrial = dueDate;            
           }
           return dueDate.format("MM/DD/YYYY");
         case "Weekly":

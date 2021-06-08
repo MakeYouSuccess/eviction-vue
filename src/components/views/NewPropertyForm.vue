@@ -63,7 +63,6 @@ export default {
     },
     // save(submitted = this.property.completed) {
     //   if (this.$store.getters.isAuthenticated) {
-    //     console.log("user logged in... saving to database...");
 
     //     this.saving = true;
 
@@ -74,8 +73,7 @@ export default {
     //         submitted: submitted,
     //       })
     //       .then((r) => r.data)
-    //       .then((data) => {
-    //         console.log("successfully saved property:", data);
+    //       .then((data) => {    
     //         this.property = data;
     //         this.saving = false;
     //       });

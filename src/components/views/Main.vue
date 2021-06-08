@@ -1,5 +1,59 @@
 <template>
   <div class="py-4 px-12 mx-4">
+    <div 
+      v-if="showEvictionBanner"
+      class="eviction-banner custom-banner mt-12"
+    >
+      <v-icon 
+        class="accent--text close-icon" 
+        @click="closeEvictionBanner"
+      >
+        mdi-close
+      </v-icon>
+      <i class="icofont-exclamation-circle icofont-2x accent--text" />
+      <div class="text-part">
+        <h4 class="accent--text banner-title">
+          EVICTION MORATORIUM
+        </h4>
+        <p class="ma-0 secondary--text">
+          Currently, due to COVID-19, there is a State and Federal moratorium on evictions. It is important to note that although you will not be able to actually evict the tenant from the Premises during the moratorium, both State and Federal moratoriums allow for commencing with the eviction process, by filing a Complaint against the tenant. 
+          <a 
+            href="#"
+            class="accent--text"
+          >
+            Read additional information
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <div 
+      v-if="showUpcomingBanner"
+      class="upcoming-banner custom-banner mt-6"
+    >
+      <v-icon 
+        class="accent2--text close-icon" 
+        @click="closeUpcomingBanner"
+      >
+        mdi-close
+      </v-icon>
+      <i class="icofont-exclamation-circle icofont-2x accent2--text" />
+      <div class="text-part">
+        <h4 class="accent2--text banner-title">
+          UPCOMING FEATURES
+        </h4>
+        <p class="ma-0 secondary--text">
+          Although you may use our software to go through the legal process to evict a tenant due to non-payment of rent, there are a few things we are not quite yet ready for, but will support in the future. To view a list of our upcoming features,
+          <a 
+            href="#"
+            class="accent2--text"
+          >
+            click here.
+          </a>
+        </p>
+      </div>
+    </div>
+
     <div class="d-flex align-center mt-6 mb-12">
       <div class="secondary--text custom-heading mr-12">
         Evictions
@@ -66,6 +120,22 @@
     </v-dialog>
 
     <!-- this is the dialog that will pop up if columns button is pressed -->
+    <v-dialog
+      v-model="showDisclaimer"
+      persistent
+      max-width="600"
+    >
+      <info-dialog
+        title="Disclaimer"
+        color="accent"
+        type="warning"
+        text="File Evictions is a self-help platform for exporting court forms for the eviction process. The legal information presented to you may or may not apply to your specific case, and as such, should not be applied or relied upon without consulting with an Attorney. By proceeding, you accept full responsibility."
+        btn-text="I UNDERSTAND"
+        @submit="closeDisclaimerPopup"
+      />
+    </v-dialog>
+
+    <!-- this is the disclaimer dialog -->
     <v-dialog
       v-model="columnDialogOpen"
       max-width="500"
@@ -178,6 +248,15 @@ export default {
                 component: 'delinquent-table',
                 items: []
             }
+      },
+      showDisclaimer () {
+        return this.$store.state.showDisclaimer
+      },
+      showUpcomingBanner() {
+        return this.$store.state.showUpcomingBanner
+      },
+      showEvictionBanner () {
+        return this.$store.state.showEvictionBanner
       }
     },
     created(){
@@ -187,18 +266,66 @@ export default {
     //           }
     //         })
     //         .then(r => r.data)
-    //         .then(data =>{
-    //           console.log(data)
+    //         .then(data =>{    
     //           this.tabs[1].items = data
     //         })
     },
     methods: {
       updateFilters() {
         /** TODO : To be implemented */
+      },
+      closeDisclaimerPopup() {
+        this.$store.commit('set_disclaimer', false);
+      },
+      closeUpcomingBanner() {
+        localStorage.setItem("show_upcoming_banner", false);
+        this.$store.commit('set_upcoming_banner', false);
+      },
+      closeEvictionBanner() {
+        var today = new Date().toISOString().slice(0, 10);
+        localStorage.setItem("closed_eviction_banner_time", today); 
+        this.$store.commit('set_eviction_banner', false);
       }
     }
 }
 </script>
 
 <style>
+  .custom-banner {
+    position: relative;
+    padding: 20px 30px 30px;
+    border-radius: 15px;
+    display: flex;
+    align-items: baseline;
+  }
+
+  .eviction-banner {
+    background: #FF854E39 0% 0%;
+    border: 6px solid #FF854E;    
+  }
+
+  .custom-banner .close-icon {
+    position: absolute;
+    cursor: pointer;
+  }
+
+  .custom-banner .text-part {
+    margin-left: 20px;
+  }
+
+  .banner-title {
+    font-size: 30px;
+    line-height: 26px;
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+
+  .banner-description {
+    margin: 0;
+  }
+
+  .upcoming-banner {
+    background: #6A7FDB38;
+    border: 6px solid #6A7FDB;    
+  }
 </style>

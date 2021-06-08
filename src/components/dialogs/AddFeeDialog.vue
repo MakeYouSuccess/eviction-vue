@@ -215,8 +215,7 @@ export default {
         const [year1, month1, day1] = dates[0].split("-");
         const [year2, month2, day2] = dates[1].split("-");
         return `${month1}/${day1}/${year1} - ${month2}/${day2}/${year2}`;
-      }
-      console.log("not arr");
+      }      
       const [year1, month1, day1] = dates.split("-");
       return `${month1}/${day1}/${year1}`;
     },

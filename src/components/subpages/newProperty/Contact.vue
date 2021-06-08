@@ -284,8 +284,7 @@ export default {
   created() {
     this.$http
       .get(`${process.env.VUE_APP_URL}/contactInfo/${this.client.userId}`)
-      .then((r) => {
-        console.log('contactInfos', r.data);
+      .then((r) => {        
         this.contactInfos = r.data;
         if (this.contactInfos.length > 0) {
           this.showForm = false;
@@ -306,8 +305,7 @@ export default {
               contactInfo: this.contactInfo,
               userId: this.client.userId,
             })
-            .then((r) => {
-              console.log('new saved contactInfoId', r.data);
+            .then((r) => {              
               this.$emit("update", {
                 data: {
                   contactInfoId: r.data,
@@ -334,8 +332,7 @@ export default {
                 zipcode: this.contactInfo.zipcode,
               }
             })
-            .then((r) => {
-              console.log('updated userInformation', r.data);
+            .then((r) => {              
               this.$store.commit("set_user", r.data);
             });
           }

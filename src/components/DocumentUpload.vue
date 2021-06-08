@@ -185,8 +185,7 @@ export default {
     //    this.$emit('add:files', this.uploadedFiles)
     //    this.uploadedFiles = []
     // },
-    uploadManual(file) {
-      console.log(file);
+    uploadManual(file) {      
       this.$set(this.uploadingFiles, file.fileName, {
         uploadingFileName: file.fileName,
         uploadingDocumentName: file.documentName,
@@ -203,14 +202,12 @@ export default {
       this.uploadingFiles[file.name].uploadProgressBytes =
         Math.round((bytesSent / 1048576 + Number.EPSILON) * 100) / 100;
     },
-    fileAdded(file) {
-      console.log("fileAdded", file);
+    fileAdded(file) {      
       this.addedFile = file;
       //this.addedFileName = file.name;
       this.addDocumentOpen = true;
     },
-    sendingEvent(file, xhr, formData) {
-      console.log("uploading files", this.uploadingFiles[file.name]);
+    sendingEvent(file, xhr, formData) {      
       formData.append("caseId", this.caseId);
       formData.append("creatorId", this.clientId);
       formData.append(

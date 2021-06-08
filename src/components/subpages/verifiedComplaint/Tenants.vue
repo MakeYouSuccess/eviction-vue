@@ -336,7 +336,6 @@ export default {
       this.loading = false;
       this.tenantsOnFile = false;
       this.tenantInfoCorrect = "no";
-      console.log("in tenants");
     }
     //this.loading = true
     //if form was started before, and tenants were created

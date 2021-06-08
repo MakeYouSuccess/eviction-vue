@@ -90,7 +90,7 @@ export default {
         //     this.uploadError = err.response;
         //     this.currentStatus = STATUS_FAILED;
         //   });
-        console.log(formData)
+        console.log('formData', formData);        
         this.currentStatus = STATUS_SUCCESS
       },
       filesChange(fieldName, fileList) {

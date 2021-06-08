@@ -302,7 +302,6 @@ export default {
               },
             ],
           });
-          console.log(this.categories);
           break;
         default:
           break;

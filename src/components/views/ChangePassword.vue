@@ -20,7 +20,7 @@
         </mq-layout> -->
 
 
-    <v-card class="pa-4 mx-auto">
+    <v-card class="pa-4 mx-auto rounded-card custom-shadow">
       <div class="lock-wrapper">
         <i
           :class="{'icofont-2x': mobileScreenType, 'icofont-3x': !mobileScreenType}"
@@ -251,6 +251,9 @@ export default {
 </script>
 
 <style>
+.custom-shadow {
+  box-shadow: 15px 15px 40px #00000029 !important;
+}
 .change-card {
     width:80%;
     top: 135px;

@@ -78,12 +78,10 @@ export default {
     return {};
   },
   methods: {
-    close() {
-      console.log("close");
+    close() {      
       this.$emit("close-dialog");
     },
-    verify() {
-      console.log("verify");
+    verify() {      
       this.$emit("close-dialog");
     },
   },

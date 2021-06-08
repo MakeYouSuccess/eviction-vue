@@ -242,12 +242,18 @@ export default {
       this.signature = data;
     },
     next() {
-      this.save();
+      if (this.filingPlan === 'E-FILE') {
+        this.save();      
+        this.$emit("update", {
+          data: { signature: this.signature },
+          steps: { sign: "completed" },
+        });
+      } else {
+        this.$emit("update", {
+          steps: { sign: "completed" },
+        });
+      }  
       this.successDialog = true;
-      this.$emit("update", {
-        data: { signature: this.signature },
-        steps: { sign: "completed" },
-      });
       // this.$emit("next");
     },
     setSignatureBlock() {

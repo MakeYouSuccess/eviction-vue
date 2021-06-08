@@ -68,7 +68,6 @@ export default {
 //   },
 //   mounted() {
 //     pdf.createLoadingTask(this.src).promise.then((pdf) => {
-//       console.log("pdf", pdf);
 //       this.numPages = pdf._pdfInfo.numPages;
 //       this.loadedSrc = pdf;
 //     });

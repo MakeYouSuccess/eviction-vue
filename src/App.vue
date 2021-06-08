@@ -11,8 +11,7 @@
               $route.name !== 'login' &&
               $route.name !== 'register' &&
               $route.name !== 'register-only' &&
-              $route.name !== 'forgot-password' &&
-              $route.name !== 'change-password'
+              $route.name !== 'forgot-password'              
           "
           class="display-control"
         />
@@ -26,8 +25,7 @@
           $route.name !== 'unauthorized' &&
             $route.name !== 'login' &&
             $route.name !== 'register' &&
-            $route.name !== 'forgot-password' &&
-            $route.name !== 'change-password'
+            $route.name !== 'forgot-password'
         "
         inset
         app
@@ -94,7 +92,6 @@ export default {
   //   this.$store.dispatch("loadUser");
   // },
   beforeCreate() {
-    // console.log("test", this.$route);
     // this.$authHelpers.checkIfSignedIn();
   },
   created() {

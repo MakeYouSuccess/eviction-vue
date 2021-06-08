@@ -305,8 +305,7 @@ export default {
       let total = 0;
       arr.forEach((item) => {
         if (item.amount) {
-          total += parseFloat(item.amount);
-          console.log("prd", total);
+          total += parseFloat(item.amount);          
         }
       });
       return total;

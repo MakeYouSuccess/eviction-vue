@@ -276,8 +276,7 @@ export default {
     //     },
     //   })
     //   .then((r) => r.data)
-    //   .then((data) => {
-    //     console.log(data);
+    //   .then((data) => {    
     //     this.items = data;
     //   });
   },

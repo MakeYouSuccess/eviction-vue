@@ -168,7 +168,6 @@ export default {
     },
     fileExtension(fileName) {
       const fileExt = fileName.split(".")[1];
-      console.log(fileExt);
       switch (fileExt) {
         case "doc":
         case "docx":

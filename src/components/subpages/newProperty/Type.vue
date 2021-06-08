@@ -105,8 +105,7 @@ export default {
             data: { propertyType: this.propertyType },
             steps: { type: "completed", registration: "" },
           });
-        }
-        console.log(this.$route);
+        }        
         this.$router.push({
           name: `${
             this.$route.name.includes("vc") ? "vc-" : ""

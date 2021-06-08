@@ -93,8 +93,7 @@ export default {
             this.getUploads()
             this.documentDialog = false
         },
-        getUploads(){
-            console.log('cc', this.currentCase)
+        getUploads(){            
             this.$http
       .get(`${process.env.VUE_APP_URL}/uploads`, {
         params: {
@@ -102,8 +101,7 @@ export default {
         },
       })
       .then((r) => r.data)
-      .then((data) => {
-        console.log('uploads',data);
+      .then((data) => {        
         this.items = data;
       });
         }

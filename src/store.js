@@ -12,67 +12,70 @@ export const store = new Vuex.Store({
       //authenticated: true,
       auth: false,
       authLoaded: false,
+      showDisclaimer: false,
+      showUpcomingBanner: false,
+      showEvictionBanner: false,
       errorMsg: '',
       continueWithoutLogin: false,
       dialog: '',
       evictionHeaders: ['owner', 'property', 'tenant','county','hearingDate', 'suit', 'menu', 'representation'],
       propertyHeaders: ['owner', 'property', 'tenant','county','action', 'menu'],
-      cases: [{
-        id: 1,
-        service: 'Full Eviction',
-        ownerFirstName: 'Leslie',
-        ownerLastName: 'Black',
-        streetAddress: '1124 Somewhere Ln',
-        city: 'Newark',
-        state: 'NJ',
-        zipcode: '89898',
-        county: 'Newark',
-        tenants: [{firstName: 'Charlotte',
-                    lastName: 'Smith'},
-                    {firstName: 'Timothy',
-                    lastName: 'Smith'},
-                  ],
-        docketNo: 'LT-293223',
-        hearingDate: '03.03.20',
-        initialSuitAmount: '2000',
-        currentSuitAmount: '2500',
-        attorney: {firstName: 'Kimberly',
-                    lastName: 'Swanson'},
-        status: 'Verified Complaint',
-        statusType: 'Filed',
-        statusDate: '03.03.20',
-        action: {api: 'enterCourtInfo'}
-         
-      },
-      {
-        id: 11,
-        service: 'Full Eviction',
-        ownerFirstName: 'Leslie',
-        ownerLastName: 'Black',
-        streetAddress: '1124 Somewhere Ln',
-        city: 'Newark',
-        state: 'NJ',
-        zipcode: '89898',
-        county: 'Newark',
-        tenants: [{firstName: 'Charlotte',
-                    lastName: 'Smith'},
-                    {firstName: 'Timothy',
-                    lastName: 'Smith'},
-                    {firstName: 'Harvey',
-                    lastName: 'Smith'},
-                  ],
-        docketNo: 'LT-293223',
-        hearingDate: '03.03.20',
-        initialSuitAmount: '2000',
-        currentSuitAmount: '2500',
-        attorney: {firstName: 'Kimberly',
-                    lastName: 'Swanson'},
-        status: 'Verified Complaint',
-        statusType: 'Filed',
-        statusDate: '03.03.20',
-        action: {api: 'enterCourtInfo'}
-         
-      }],
+      cases: [
+        // {
+        //   id: 1,
+        //   service: 'Full Eviction',
+        //   ownerFirstName: 'Leslie',
+        //   ownerLastName: 'Black',
+        //   streetAddress: '1124 Somewhere Ln',
+        //   city: 'Newark',
+        //   state: 'NJ',
+        //   zipcode: '89898',
+        //   county: 'Newark',
+        //   tenants: [{firstName: 'Charlotte',
+        //               lastName: 'Smith'},
+        //               {firstName: 'Timothy',
+        //               lastName: 'Smith'},
+        //             ],
+        //   docketNo: 'LT-293223',
+        //   hearingDate: '03.03.20',
+        //   initialSuitAmount: '2000',
+        //   currentSuitAmount: '2500',
+        //   attorney: {firstName: 'Kimberly',
+        //               lastName: 'Swanson'},
+        //   status: 'Verified Complaint',
+        //   statusType: 'Filed',
+        //   statusDate: '03.03.20',
+        //   action: {api: 'enterCourtInfo'}
+        // },
+        // {
+        //   id: 11,
+        //   service: 'Full Eviction',
+        //   ownerFirstName: 'Leslie',
+        //   ownerLastName: 'Black',
+        //   streetAddress: '1124 Somewhere Ln',
+        //   city: 'Newark',
+        //   state: 'NJ',
+        //   zipcode: '89898',
+        //   county: 'Newark',
+        //   tenants: [{firstName: 'Charlotte',
+        //               lastName: 'Smith'},
+        //               {firstName: 'Timothy',
+        //               lastName: 'Smith'},
+        //               {firstName: 'Harvey',
+        //               lastName: 'Smith'},
+        //             ],
+        //   docketNo: 'LT-293223',
+        //   hearingDate: '03.03.20',
+        //   initialSuitAmount: '2000',
+        //   currentSuitAmount: '2500',
+        //   attorney: {firstName: 'Kimberly',
+        //               lastName: 'Swanson'},
+        //   status: 'Verified Complaint',
+        //   statusType: 'Filed',
+        //   statusDate: '03.03.20',
+        //   action: {api: 'enterCourtInfo'}
+        // }
+      ],
       delinquents: [{
         id: 1,
         service: 'Full Eviction',
@@ -206,9 +209,7 @@ export const store = new Vuex.Store({
         //     .then(resp => {
         //       const token = resp.data.token
         //       const user = resp.data.user
-        //       console.log('auth_token', token)
-        //       localStorage.setItem('acc_token', JSON.stringify(token))
-        //       console.log(localStorage.getItem('acc_token'))
+        //       localStorage.setItem('acc_token', JSON.stringify(token))        
         //       axios.defaults.headers.common['Authorization'] = token
         //       commit('auth_success', {token, user})
         //       resolve(resp)
@@ -259,7 +260,6 @@ export const store = new Vuex.Store({
             })
             .then(r => r.data)
             .then(data =>{
-              console.log('loadCases',data)
               commit('set_cases', data)
             })
         },
@@ -277,8 +277,7 @@ export const store = new Vuex.Store({
             })
         },
 
-        initialSetup ({commit, getters}){
-          console.log('ge',getters.client.id)
+        initialSetup ({commit, getters}){          
           axios
             .get(`${process.env.VUE_APP_URL}/client/cases`,{
               params: {
@@ -286,8 +285,7 @@ export const store = new Vuex.Store({
               }
             })
             .then(r => r.data)
-            .then(data =>{
-              console.log('loadCases',data)
+            .then(data =>{              
               commit('set_cases', data)
             })
           axios
@@ -298,14 +296,13 @@ export const store = new Vuex.Store({
           })
             .then(r => r.data)
             .then(data =>{
-              commit('update_cart', data)
-              console.log('cart', data)
+              commit('update_cart', data)            
             })
         },
 
         // loadUser({commit, getters}){
         //   if(localStorage.getItem('acc_token') === null){
-        //     console.log('it is null')
+        //     return;
         //   }
         //   else{
         //     const authToken = JSON.parse(localStorage.getItem('acc_token'))
@@ -327,17 +324,26 @@ export const store = new Vuex.Store({
 
     mutations: {
       //mutations for authorization
-        set_auth(state, auth){
-          console.log('auth', auth)
+        set_auth(state, auth){          
           state.auth = auth
         },
 
-        set_user(state, user){
-          console.log('user-store',user)
+        set_disclaimer(state, disclaimer_flag) {
+          state.showDisclaimer = disclaimer_flag
+        },
+
+        set_upcoming_banner(state, flag) {
+          state.showUpcomingBanner = flag
+        },
+
+        set_eviction_banner(state, flag) {
+          state.showEvictionBanner = flag
+        },
+
+        set_user(state, user){          
           state.client = user
         },
-        set_auth_loaded(state, loaded){
-          console.log('loaded', loaded)
+        set_auth_loaded(state, loaded){          
           state.authLoaded = loaded
         },
         set_auth_error(state, err){
@@ -351,8 +357,7 @@ export const store = new Vuex.Store({
           state.cases = cases
         },
         set_tasks(state, tasks){
-          state.tasks = tasks
-          console.log('tasks', tasks)
+          state.tasks = tasks          
           state.tasksLoaded = true
         },
 
@@ -366,11 +371,9 @@ export const store = new Vuex.Store({
           state.currentProperty = property
         },
         update_cart(state, cart){
-          state.cart = cart
-          console.log(state.cart)
+          state.cart = cart          
         },
-        update_task_status(state, {id, status}){
-          console.log(status)
+        update_task_status(state, {id, status}){          
           const index = state.tasks.findIndex(e=>e.id === id)
           Vue.set(state.tasks[index], 'status', status)
         },

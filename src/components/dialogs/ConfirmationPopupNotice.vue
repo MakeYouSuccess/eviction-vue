@@ -137,7 +137,8 @@ export default {
     },
     methods:{
         sub(){
-           console.log('di', this.dialogAction)
+           // console.log('di', this.dialogAction)
+           return;
         },
         submit(){
             

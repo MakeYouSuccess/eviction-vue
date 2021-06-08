@@ -228,7 +228,6 @@ export default {
         //   align: 'left',
         //   // width: '10%',
         //   // filter: value => {
-        //   //   console.log(value)
         //   //   if (!this.tableFilters.nt) return true
         //   //   return value
         //   //   //return value.toUpperCase().includes('E')
@@ -346,8 +345,7 @@ export default {
       return 600;
     },
   },
-  created() {
-    console.log("act");
+  created() {    
     this.$store.dispatch("loadCases");
   },
   methods: {
@@ -357,12 +355,10 @@ export default {
           path: JSON.parse(action.details).route,
           query: { status: "started", caseId: item.id },
         });
-      } else {
-        console.log(item);
+      } else {        
         this.dialogCase = item;
         this.dialogAction = item.action;
-        this.dialogName = `${item.action.api}Dialog`;
-        console.log(this.dialogName);
+        this.dialogName = `${item.action.api}Dialog`;        
         this.dialogOpen = true;
       }
     },

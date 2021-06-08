@@ -38,7 +38,6 @@ export default {
     methods:{
       changeFilters(filters){
         this.tableFilters = filters
-        console.log(this.tableFilters)
       }
     }
 }

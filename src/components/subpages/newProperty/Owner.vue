@@ -206,8 +206,6 @@ export default {
     combineDeedNames() {
       if (this.deedNames.length === 1) return this.deedNames[0];
       let last = this.deedNames.pop();
-      console.log(this.deedNames.join(", ") + " and " + last);
-
       return this.deedNames.join(", ") + " and " + last;
     },
     deleteItem(index, arr) {

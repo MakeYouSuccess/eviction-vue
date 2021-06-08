@@ -146,8 +146,7 @@ export default {
         closeDialog(){
             this.chooseCaseDialog = false
         },
-        stepClicked(step){
-            console.log(step)
+        stepClicked(step){            
             this.step = step
         },
         submit(){
@@ -166,7 +165,6 @@ export default {
             this.$http.post(`${process.env.VUE_APP_URL}/render_template`, 
         {templateData: templateData, templateName: templateName}
         ).then(response => {
-            console.log(response.data)
             const linkSource = `data:application/pdf;base64,${response.data}`;
         const downloadLink = document.createElement("a");
         const fileName = "certification_by_landlord.pdf";

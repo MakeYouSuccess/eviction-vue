@@ -313,8 +313,7 @@ export default {
     };
   },
   computed: {
-    typeAmount() {
-      console.log('selected', this.selected);
+    typeAmount() {      
       switch (this.selected) {
         case "flat":
           return this.flatAmount;
@@ -369,8 +368,7 @@ export default {
         return `${date1.format("MMMM D, YYYY")} - ${date2.format(
           "MMMM D, YYYY"
         )}`;
-      }
-      console.log("not arr");
+      }      
       return this.$dayjs(dates.format("MMMM D, YYYY"));
     },
   },
