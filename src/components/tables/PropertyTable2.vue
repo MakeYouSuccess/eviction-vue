@@ -4,7 +4,7 @@
     class="pa-0"
   >
     <v-row
-      class="text-left header-text secondary--text font-weight-medium px-8"
+      class="text-center header-text secondary--text font-weight-medium px-8"
       style="font-size: 0.75rem"
     >
       <v-col cols="2">
@@ -25,18 +25,43 @@
       <v-col cols="2">
         Action
       </v-col>
-    </v-row>
-    <paginate
+    </v-row>    
+    <div 
+      v-if="itemsAmount === 0" 
+      class="no-data-table no-data-card my-5 d-flex justify-center align-center"
+    >
+      <div class="d-flex justify-center align-center flex-column no-data-table-inner background_grey px-15 py-15">
+        <i
+          class="icofont-puzzle primary--text"
+          style="font-size: 5rem"
+        />
+        <h5 class="secondary--text custom-subtitle">
+          Oops. We don’t have your records.
+        </h5>
+        <p class="slim--text">
+          Looks like you have not added any properties.
+        </p>
+        <v-btn
+          rounded
+          color="primary"
+          class="px-8 mb-2 mt-4 white--text capital--btn"                 
+          @click="$router.push('/properties/new')"
+        >
+          Add New
+        </v-btn>
+      </div>
+    </div>
+    <paginate      
       ref="paginator"
       :container="this"
       name="pagitems"
-      :list="items"
+      :list="items"      
       tag="div"
       :per="amountPerPg"
     >
       <v-card
         style="border-radius: 20px; box-shadow: 15px 15px 40px #00000029"
-        class="mt-2"
+        class="mt-4"
       >
         <v-list class="pa-0">
           <v-list-item-group>
@@ -46,7 +71,7 @@
               style="font-size: 0.875rem"
               class="py-8 px-8"
             >
-              <v-row class="secondary--text">
+              <v-row class="secondary--text text-center">
                 <v-col cols="2">
                   <div>{{ item.deedNames }}</div>
                 </v-col>
@@ -323,6 +348,9 @@ export default {
       if (this.amountPerPage) return this.amountPerPage;
       return 1;
     },
+    itemsAmount() {
+      return this.items.length;
+    }
   },
   methods: {
     startEviction(item) {
@@ -348,5 +376,24 @@ ul.d-flex.paginate-links.pagitems {
 }
 .paginate-list li {
   display: block;
+}
+
+.no-data-card {
+  background: #FFFFFF;
+  box-shadow: 15px 15px 40px #00000029;
+  border-radius: 20px;  
+  margin: 0;
+  height: 600px;
+}
+
+.no-data-table-inner {
+  width: 80%;
+  margin: 0 auto;
+  /* background-color: #FAFBFC; */
+  border-radius: 20px;
+}
+
+.no-data-table-inner p {
+  font-size: 17px;
 }
 </style>

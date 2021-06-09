@@ -40,7 +40,8 @@ export default new Vuetify({
               blueish: '#45677d',
               blue_grey: '#93AEBF',
               background_grey: '#FAFBFC',
-              grey_light: '#F0F5F6'
+              grey_light: '#F0F5F6',
+              slim: '#1E5273'
             },
           },
         },

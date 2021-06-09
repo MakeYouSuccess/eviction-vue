@@ -346,7 +346,7 @@ export default {
     },
   },
   created() {    
-    this.$store.dispatch("loadCases");
+    this.loadCases();
   },
   methods: {
     actionDecision(item, action) {
@@ -367,7 +367,7 @@ export default {
       this.dialogOpen = false;
     },
     loadCases() {
-      // this.$store.dispatch('loadCases')
+      this.$store.dispatch('loadCases')
     },
     view(id) {
       this.$router.push(`case-view/${id}/overview`);

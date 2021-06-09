@@ -68,7 +68,10 @@
                 }}</span>
               </v-list-item>
             </v-list-item-group>
-            <v-list-item v-else class="py-1">
+            <v-list-item
+              v-else
+              class="py-1"
+            >
               <span class="secondary--text">No property found.</span>
             </v-list-item>
           </v-list>
@@ -179,8 +182,8 @@ export default {
     },
     valid() {
       return this.$route.query.addUnit
-        ? this.chosenProperty && this.unitNo
-        : this.chosenProperty;
+        ? this.chosenProperty !== "" && this.unitNo
+        : this.chosenProperty !== "";
     },
   },
   watch: {

@@ -315,6 +315,7 @@ export default {
               this.$emit("submit");
             });
 
+
           if(!this.client.firstName) {
           /** Update user information with the contact input */
           this.$http

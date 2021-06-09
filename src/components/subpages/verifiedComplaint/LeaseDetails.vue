@@ -103,6 +103,7 @@
         <div class="font-weight-medium secondary--text pb-2">
           Lease Start Date
         </div>
+        <div>
         <v-menu
           v-model="menu"
           :close-on-content-click="false"
@@ -136,7 +137,7 @@
             @input="menu = false"
           />
         </v-menu>
-
+        </div>
         <div v-if="!isSection8">
           <div class="font-weight-medium secondary--text pb-2">
             Rent Cycle
