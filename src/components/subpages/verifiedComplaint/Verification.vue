@@ -253,6 +253,7 @@ export default {
   data() {
     return {
       confirmed: false,
+      show: false,
       statements: {
         read_info_true: {
           text:

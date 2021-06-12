@@ -21,7 +21,8 @@ import VueInputAutowidth from 'vue-input-autowidth'
 import convertToCurrency from './plugins/convertToCurrency.js';
 import convertDate from './plugins/convertDate.js';
 import helpers from './plugins/helpers.js';
-import stateHelper from './plugins/stateHelper.js'
+import stateHelper from './plugins/stateHelper.js';
+import createAvatarBackgroundColor from './plugins/createAvatarBG';
 import vueKanban from 'vue-kanban'
 import VuePaginate from 'vue-paginate'
 import '@/components'
@@ -69,6 +70,7 @@ Vue.use(convertToCurrency)
 Vue.use(convertDate)
 Vue.use(helpers)
 Vue.use(stateHelper)
+Vue.use(createAvatarBackgroundColor)
 
 Vue.config.productionTip = false
 Vue.prototype.$http = Axios

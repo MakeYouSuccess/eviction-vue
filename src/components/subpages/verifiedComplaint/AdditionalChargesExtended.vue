@@ -25,25 +25,29 @@
 
       <div v-if="checklist.lateCharges">
         <!-- Heading -->
-        <div class="d-flex align-center mt-10">
-          <v-btn
-            fab
-            depressed
-            color="primary"
-            height="45"
-            width="45"
-            @click="lateChargesOpen = true"
-          >
-            <span
-              class="white--text font-weight-regular"
-              style="font-size: 50px"
-            >+</span>
-          </v-btn>
-
-          <div class="custom-subtitle pl-6">
+        <div class="mt-10">
+          <div class="custom-subtitle">
             Late Charges
           </div>
-        </div>
+          <div class="d-flex align-center mt-3">
+            <v-btn
+              fab
+              depressed
+              color="accent"
+              height="30"
+              width="30"
+              @click="lateChargesOpen = true"
+            >
+              <span
+                class="white--text font-weight-regular"
+                style="font-size: 30px"
+              >+</span>
+            </v-btn>
+            <div class="ml-5">
+              Add LATE CHARGES
+            </div>
+          </div>
+        </div>        
 
         <!-- Items -->
         <div
@@ -119,25 +123,29 @@
 
       <div v-if="checklist.utilities">
         <!-- Heading -->
-        <div class="d-flex align-center mt-10">
-          <v-btn
-            fab
-            depressed
-            color="primary"
-            height="45"
-            width="45"
-            @click="utilitiesOpen = true"
-          >
-            <span
-              class="white--text font-weight-regular"
-              style="font-size: 50px"
-            >+</span>
-          </v-btn>
-
-          <div class="custom-subtitle pl-6">
+        <div class="mt-10">
+          <div class="custom-subtitle">
             Utilities
           </div>
-        </div>
+          <div class="d-flex align-center mt-3">
+            <v-btn
+              fab
+              depressed
+              color="accent"
+              height="30"
+              width="30"
+              @click="utilitiesOpen = true"
+            >
+              <span
+                class="white--text font-weight-regular"
+                style="font-size: 30px"
+              >+</span>
+            </v-btn>
+            <div class="ml-5">
+              Add UTILITIES
+            </div>
+          </div>
+        </div>        
 
         <!-- Items -->
         <div
@@ -221,25 +229,29 @@
 
       <div v-if="checklist.fees">
         <!-- Heading -->
-        <div class="d-flex align-center mt-10">
-          <v-btn
-            fab
-            depressed
-            color="primary"
-            height="45"
-            width="45"
-            @click="feesOpen = true"
-          >
-            <span
-              class="white--text font-weight-regular"
-              style="font-size: 50px"
-            >+</span>
-          </v-btn>
-
-          <div class="custom-subtitle pl-6">
+        <div class="mt-10">
+          <div class="custom-subtitle">
             Fees
           </div>
-        </div>
+          <div class="d-flex align-center mt-3">
+            <v-btn
+              fab
+              depressed
+              color="accent"
+              height="30"
+              width="30"
+              @click="feesOpen = true"
+            >
+              <span
+                class="white--text font-weight-regular"
+                style="font-size: 30px"
+              >+</span>
+            </v-btn>
+            <div class="ml-5">
+              Add Fees
+            </div>
+          </div>
+        </div>        
 
         <!-- Items -->
         <div
@@ -323,23 +335,27 @@
 
       <div v-if="checklist.other">
         <!-- Heading -->
-        <div class="d-flex align-center mt-10">
-          <v-btn
-            fab
-            depressed
-            color="primary"
-            height="45"
-            width="45"
-            @click="otherOpen = true"
-          >
-            <span
-              class="white--text font-weight-regular"
-              style="font-size: 50px"
-            >+</span>
-          </v-btn>
-
-          <div class="custom-subtitle pl-6">
+        <div class="mt-10">
+          <div class="custom-subtitle">
             Other
+          </div>
+          <div class="d-flex align-center mt-3">
+            <v-btn
+              fab
+              depressed
+              color="accent"
+              height="30"
+              width="30"
+              @click="otherOpen = true"
+            >
+              <span
+                class="white--text font-weight-regular"
+                style="font-size: 30px"
+              >+</span>
+            </v-btn>
+            <div class="ml-5">
+              Add Other Fees
+            </div>
           </div>
         </div>
 
@@ -569,14 +585,18 @@ export default {
     calculateLateChargePeriods(calculateInfoArray) {
       calculateInfoArray.map(calculateInfo => {
         let amount = 0;
+        let type = "";
         switch (calculateInfo.type) {
           case "flat":
+            type = "Late Charge Flat Fee";
             amount = calculateInfo.flatAmount;
             break;
           case "percentage":
+            type = "Late Charge Percentage Fee";
             amount = (calculateInfo.percentage / 100) * this.rentAmount;
             break;
           case "daily":
+            type = "Late Charge Daily Fee";
             //amount = calculateInfo.dailyAmount * (this.calculateDateDifferance()) + calculateInfo.baseAmount;
             //will have to add to specific ranges
             break;
@@ -586,6 +606,7 @@ export default {
               timePeriod: calculateInfo.timePeriod,
               timePeriodDisplay: calculateInfo.timePeriodDisplay,
               selected: true,
+              type: "Late Charge Other Fee"
             });
             return;
           default:
@@ -607,6 +628,7 @@ export default {
             timePeriodDisplay: period.timePeriodDisplay,
             calculatedAmount: 400,
             selected: true,
+            type: type
           });
         }
       });

@@ -158,6 +158,7 @@ export const store = new Vuex.Store({
       properties: [],
       redirect: '',
       cart: [],
+      citiesAndSubs: [],
     },
 
     getters: {
@@ -176,6 +177,9 @@ export const store = new Vuex.Store({
         currentCase: (state) => (id) => {
           return state.cases.find(singleCase => singleCase.id == id)
         },
+        userName: (state) => {
+          return state.client.firstName + " " + state.client.lastName
+        },
         completedTasks: state => {
           return state.tasks.filter(task => task.status === 'completed').length
         },
@@ -191,7 +195,8 @@ export const store = new Vuex.Store({
         cart: state => state.cart,
         cartTotal: state => state.cart.length,
         redirect: state => state.redirect,
-        currentProperty: state => state.currentProperty
+        currentProperty: state => state.currentProperty,
+        allCitiesAndSubs: state => state.citiesAndSubs,
     },
 
     actions: {
@@ -380,6 +385,9 @@ export const store = new Vuex.Store({
         delete_task(state, id){
           const index = state.tasks.findIndex(e=>e.id === id)
           state.tasks.splice(index, 1)
+        },
+        set_all_cities_and_subs(state, data) {
+          state.citiesAndSubs = data;
         }
     }
   });

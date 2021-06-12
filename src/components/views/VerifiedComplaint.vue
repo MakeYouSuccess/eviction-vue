@@ -419,6 +419,7 @@ export default {
       }
     },
     "case.property": function (val) {
+      console.log('case property change', val)
       //load courtInfo for PDF
       this.$http
         .get(`${process.env.VUE_APP_URL}/courtServiceInfo`, {
@@ -551,6 +552,7 @@ export default {
       }
     },
     updateProperty({ steps }) {
+      console.log('updateProperty', steps);
       for (const key in steps) {
         this.steps.property.children[key].status = steps[key];        
       }

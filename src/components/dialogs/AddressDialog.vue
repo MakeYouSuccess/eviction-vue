@@ -27,7 +27,6 @@
       <v-text-field
         v-model="property.address"
         rounded
-        :rules="[(v) => !!v || 'Item is required']"
         solo
         flat
         dense
@@ -51,7 +50,6 @@
       <v-text-field
         v-model="property.city"
         rounded
-        :rules="[(v) => !!v || 'Item is required']"
         solo
         flat
         dense
@@ -65,7 +63,6 @@
         v-model="property.state"
         item-color="#F6F9FA"
         rounded
-        :rules="[(v) => !!v || 'Item is required']"
         solo
         flat
         dense
@@ -87,7 +84,6 @@
       <v-text-field
         v-model="property.zipcode"
         rounded
-        :rules="[(v) => !!v || 'Item is required']"
         solo
         flat
         dense

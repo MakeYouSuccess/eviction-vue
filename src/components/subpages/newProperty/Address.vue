@@ -25,7 +25,6 @@
         <v-text-field
           v-model="streetAddress"
           rounded
-          :rules="[(v) => !!v || 'Item is required']"
           solo
           flat
           dense
@@ -63,7 +62,6 @@
           flat
           dense
           background-color="#F0F5F6"
-          :rules="[(v) => !!v || 'Item is required']"
           class="pb-2"
         >
           <template
@@ -94,7 +92,6 @@
           v-model="state"
           item-color="#F6F9FA"
           rounded
-          :rules="[(v) => !!v || 'Item is required']"
           readonly
           solo
           flat
@@ -110,7 +107,6 @@
         <v-text-field
           v-model="zipcode"
           rounded
-          :rules="[(v) => !!v || 'Item is required']"
           solo
           flat
           dense
@@ -125,7 +121,6 @@
           v-model="county"
           item-color="#F6F9FA"
           rounded
-          :rules="[(v) => !!v || 'Item is required']"
           item-text="countyName"
           item-value="countyName"
           solo
@@ -160,7 +155,6 @@
             v-model="subdivision"
             item-color="#F6F9FA"
             rounded
-            :rules="[(v) => !!v || 'Item is required']"
             solo
             flat
             dense
@@ -321,6 +315,7 @@ export default {
       .then((results) => results.data)
       .then((data) => {
         this.allCitiesandSubs = data;
+        this.$store.commit("set_all_cities_and_subs",data);
       })
       .catch((err) => {
         console.log(err);

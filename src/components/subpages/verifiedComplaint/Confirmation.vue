@@ -190,6 +190,7 @@ export default {
   data() {
     return {
       confirmed: false,
+      show: false,
       statements: {
         military_tenant: {
           text:

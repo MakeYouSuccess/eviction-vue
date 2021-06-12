@@ -49,5 +49,14 @@ export default {
               }
               return ''
         }
+        Vue.prototype.convertDateTextMonthNumberYear = (date) =>{
+            if (date){
+                var d = new Date(Date.parse(date));                
+                var month = d.toLocaleString('default', { month: 'long' });
+                var year = d.getFullYear();                
+                return `${month} ${year}`
+              }
+              return ''
+        }
     }
 }

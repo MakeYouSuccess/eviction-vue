@@ -18,11 +18,12 @@
         <p class="ma-0 secondary--text">
           Currently, due to COVID-19, there is a State and Federal moratorium on evictions. It is important to note that although you will not be able to actually evict the tenant from the Premises during the moratorium, both State and Federal moratoriums allow for commencing with the eviction process, by filing a Complaint against the tenant. 
           <a 
-            href="#"
+            href="https://fileevictions.com/new-jersey-eviction-moratorium/"
             class="accent--text"
+            target="_blank"
           >
             Read additional information
-          </a>
+          </a>          
         </p>
       </div>
     </div>
@@ -45,8 +46,9 @@
         <p class="ma-0 secondary--text">
           Although you may use our software to go through the legal process to evict a tenant due to non-payment of rent, there are a few things we are not quite yet ready for, but will support in the future. To view a list of our upcoming features,
           <a 
-            href="#"
+            href="https://fileevictions.com/upcoming-features/"
             class="accent2--text"
+            target="_blank"
           >
             click here.
           </a>

@@ -244,6 +244,7 @@
                 flat
                 dense
                 background-color="#F0F5F6"
+                color="#003a60"
                 :disabled="!editableOther"
                 v-on="on"
                 @click:prepend="menu = true"

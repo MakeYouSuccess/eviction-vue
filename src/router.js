@@ -44,6 +44,7 @@ import Filing from '@/components/subpages/verifiedComplaint/Filing'
 import Signature from '@/components/subpages/verifiedComplaint/Signature'
 import Done from '@/components/subpages/verifiedComplaint/Done'
 import RegisterOnly from "./components/views/RegisterOnly";
+import Profile from "@/components/views/Profile";
 
 // import { store } from './store'
 //import authHelpers from './authHelpers'
@@ -317,7 +318,11 @@ const routes = [
     name: 'vc-order-details',
     component: OrderDetails
   },
-
+  {
+    path: '/profile',
+    name: 'profile',
+    component: Profile
+  }
 ]
 
 const router = new VueRouter({

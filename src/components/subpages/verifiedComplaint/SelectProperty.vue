@@ -257,15 +257,14 @@ export default {
             this.chosenProperty = r.data.propertyId;
             this.property = r.data;
 
-            this.$emit("update:data", {
-              property: this.property,
-            });
+            console.log('created select property', this.property);
+
+            this.$emit("property:completed", this.property);
             this.$router.push({ name: "vc-tenants" });
           });
       } else {
-        this.$emit("update:data", {
-          property: this.property,
-        });
+        console.log('select property', this.property);
+        this.$emit("property:completed", this.property);
         // this.$emit("next");
         this.$router.push({ name: "vc-tenants" });
       }

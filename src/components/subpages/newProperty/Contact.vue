@@ -283,9 +283,10 @@ export default {
   },
   created() {
     this.$http
-      .get(`${process.env.VUE_APP_URL}/contactInfo/${this.client.userId}`)
+      .get(`${process.env.VUE_APP_URL}/api/contactInfo/${this.client.userId}`)
       .then((r) => {        
         this.contactInfos = r.data;
+        console.log('data', r.data);
         if (this.contactInfos.length > 0) {
           this.showForm = false;
         }
@@ -316,21 +317,14 @@ export default {
             });
 
 
-          if(!this.client.firstName) {
+          if(!this.client.firstName || !this.client.defaultContactInfoId) {
           /** Update user information with the contact input */
           this.$http
             .put(`${process.env.VUE_APP_URL}/update-user`, {
               user: {
                 id: this.client.id,
                 auth0Id: this.client.auth0Id,
-                firstName: this.contactInfo.firstName,
-                lastName: this.contactInfo.lastName,
-                phone: this.contactInfo.phone,
-                address: this.contactInfo.streetAddress,
-                company: this.contactInfo.company,
-                city: this.contactInfo.city,
-                state: this.contactInfo.state,
-                zipcode: this.contactInfo.zipcode,
+                defaultContactInfoId: this.contactInfo.id,
               }
             })
             .then((r) => {              

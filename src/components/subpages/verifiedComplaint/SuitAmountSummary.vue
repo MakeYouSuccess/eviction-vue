@@ -98,7 +98,7 @@
                     style="font-size: 0.9rem"
                   >
                     {{
-                      row.timePeriodDisplay ? row.timePeriodDisplay : row.title
+                      item.name === "Past Due Rent" ? row.timePeriodDisplay : ( row.type ? row.type : row.title )
                     }}
                   </div>
                 </v-col>
@@ -224,8 +224,9 @@ export default {
     lateCharges: Array,
     utilities: Array,
     fees: Array,
-    other: Array,
+    otherCharges: Array,
     mileagePrice: String,
+    property: Object,
   },
   data() {
     return {
@@ -237,21 +238,12 @@ export default {
         },
         {
           name: "Additional Charges",
-          total: "1,200.00",
-          amounts: [
-            {
-              dates: "March 1, 2020 - March 31, 2020",
-              amount: "100.00",
-            },
-            {
-              dates: "March 1, 2020 - March 31, 2020",
-              amount: "100.00",
-            },
-          ],
+          total: this.calculateAdditionalChargeTotal(),
+          amounts: [...this.groupLateCharges(), ...this.utilities, ...this.fees, ...this.otherCharges]
         },
         {
           name: "Legal Fees",
-          total: "1,200.00",
+          total: 30 + this.calculateLegalTotal(),
           amounts: [
             {
               title: "Filing Fees",
@@ -259,7 +251,7 @@ export default {
             },
             {
               title: "Mileage Fees",
-              amount: this.mileagePrice,
+              amount: this.calculateLegalTotal(),
             },
           ],
         },
@@ -309,7 +301,34 @@ export default {
         }
       });
       return total;
-    },    
+    },
+    groupLateCharges() {
+      const groupedItems = [];
+      console.log(this.lateCharges);
+
+      // Group the price items by type
+      this.lateCharges.map(item => {
+        let existItem = groupedItems.find(group => group.type === item.type);
+        if(existItem) {
+          existItem.amount = parseFloat(existItem.amount) + parseFloat(item.amount);
+        }
+        else {
+          groupedItems.push(item);
+        }
+        return item;
+      })
+      return groupedItems;
+    },
+    calculateAdditionalChargeTotal() {
+      console.log(this.calculateTotal(this.lateCharges) + this.calculateTotal(this.utilities) + this.calculateTotal(this.fees) + this.calculateTotal(this.otherCharges));
+      return this.calculateTotal(this.lateCharges) + this.calculateTotal(this.utilities) + this.calculateTotal(this.fees) + this.calculateTotal(this.otherCharges);
+    },
+    calculateLegalTotal() {
+      console.log(this.property);
+      const propertyCity = this.$store.getters.allCitiesAndSubs.find(city => city.name == this.property.city);
+      return propertyCity ? propertyCity.mileagePrice : 0;
+    }
+    
   },
 };
 </script>

@@ -30,7 +30,7 @@
       v-if="itemsAmount === 0" 
       class="no-data-table no-data-card my-5 d-flex justify-center align-center"
     >
-      <div class="d-flex justify-center align-center flex-column no-data-table-inner background_grey px-15 py-15">
+      <div class="d-flex justify-center align-center flex-column no-data-table-inner px-15 py-15">
         <i
           class="icofont-puzzle primary--text"
           style="font-size: 5rem"
@@ -383,13 +383,11 @@ ul.d-flex.paginate-links.pagitems {
   box-shadow: 15px 15px 40px #00000029;
   border-radius: 20px;  
   margin: 0;
-  height: 600px;
 }
 
 .no-data-table-inner {
   width: 80%;
   margin: 0 auto;
-  /* background-color: #FAFBFC; */
   border-radius: 20px;
 }
 

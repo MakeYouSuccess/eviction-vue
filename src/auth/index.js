@@ -70,7 +70,8 @@ export const useAuth0 = ({
           // store.commit('set_user', {
           //   ...this.user,
           //   id: this.user.sub
-          // });          
+          // });
+          console.log(this.user);
           const auth0Id = this.user.sub;
 
           /* Handle showing the Eviction Moratorium banner */
@@ -88,9 +89,11 @@ export const useAuth0 = ({
           }
           
           /* Handle showing the Upcoming Features banner */
-          const show_upcoming_banner = localStorage.getItem("show_upcoming_banner");
-          if(JSON.parse(show_upcoming_banner)) {
+          const show_upcoming_banner = localStorage.getItem("show_upcoming_banner");      
+          if (show_upcoming_banner === null) {
             store.commit('set_upcoming_banner', true);
+          } else if(!JSON.parse(show_upcoming_banner)) {
+            store.commit('set_upcoming_banner', false);
           }
           
           await Axios.get(`${process.env.VUE_APP_URL}/clientByAuth0Id`, {
@@ -101,8 +104,12 @@ export const useAuth0 = ({
                 .then(r => r.data)
                 .then(async data => {                
                     if(!data) {
-                      await this.createDBUser(this.user);                      
+                      await this.createDBUser(this.user);
+                      localStorage.removeItem("closed_eviction_banner_time");
+                      localStorage.removeItem("show_upcoming_banner");                             
                       store.commit('set_disclaimer', true);
+                      store.commit('set_upcoming_banner', true);
+                      store.commit('set_eviction_banner', true);
                     }
                     else {
                       store.commit('set_user', data);
@@ -188,8 +195,7 @@ export const useAuth0 = ({
         return this.auth0Client.getTokenWithPopup(o);
       },
       /** Logs the user out and removes their session on the authorization server */
-      logout(o) {
-        localStorage.setItem("show_upcoming_banner", true);
+      logout(o) {        
         store.commit('set_auth', false);
         return this.auth0Client.logout(o);
       }

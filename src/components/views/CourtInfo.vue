@@ -41,7 +41,6 @@
               flat
               dense
               background-color="#F0F5F6"
-              :rules="[(v) => !!v || 'Item is required']"
               v-on="on"
               @click:append="menu = true"
             />
@@ -62,7 +61,6 @@
         <v-select
           v-model="rentCycle"
           rounded
-          :rules="[(v) => !!v || 'Item is required']"
           solo
           flat
           dense
@@ -91,7 +89,6 @@
         <v-select
           v-model="rentDueBy"
           rounded
-          :rules="[(v) => !!v || 'Item is required']"
           :multiple="rentCycle === 'Semi-monthly'"
           solo
           flat
@@ -116,7 +113,6 @@
         <v-text-field
           v-model="rentAmount"
           rounded
-          :rules="[(v) => !!v || 'Item is required']"
           type="number"
           solo
           flat
@@ -144,7 +140,6 @@
               dense
               background-color="#F0F5F6"
               readonly
-              :rules="[(v) => !!v || 'Item is required']"
             >
               <v-icon
                 slot="append"
@@ -183,7 +178,6 @@
         <v-select
           v-model="section8"
           rounded
-          :rules="[(v) => !!v || 'Item is required']"
           solo
           flat
           dense

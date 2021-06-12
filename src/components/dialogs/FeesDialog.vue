@@ -28,7 +28,6 @@
         v-if="title !== 'Other'"
         v-model="type"
         rounded
-        :rules="[(v) => !!v || 'Item is required']"
         solo
         flat
         dense
@@ -54,7 +53,6 @@
         <v-text-field
           v-model="other"
           rounded
-          :rules="[(v) => !!v || 'Item is required']"
           solo
           flat
           dense
@@ -69,7 +67,6 @@
       <v-text-field
         v-model="amount"
         rounded
-        :rules="[(v) => !!v || 'Item is required']"
         type="number"
         solo
         flat
@@ -104,7 +101,6 @@
               flat
               dense
               background-color="#F0F5F6"
-              :rules="[(v) => !!v || 'Item is required']"
               v-on="on"
               @click:append="menu = true"
             />

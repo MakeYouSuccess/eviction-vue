@@ -85,7 +85,6 @@
           v-model="tenant.name"
           rounded
           hide-details="auto"
-          :rules="[(v) => !!v || 'Item is required']"
           solo
           flat
           dense
@@ -144,7 +143,6 @@
           dense
           background-color="#F0F5F6"
           class="pb-4"
-          :rules="[(v) => !!v || 'Item is required']"
         />
       </span>
 
