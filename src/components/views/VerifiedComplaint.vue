@@ -30,34 +30,18 @@
         <p class="overline info--text font-weight-bold mb-0">
           NON-PAYMENT OF RENT
         </p>
-        <p class="spaced-text secondary--text mb-6">
-          Property
-        </p>
+        <p class="spaced-text secondary--text mb-6">Property</p>
         <side-list :items="steps" />
       </v-col>
     </v-row>
-    <v-dialog
-      v-model="previewDialog"
-      value="''"
-      max-width="900"
-    >
+    <v-dialog v-model="previewDialog" value="''" max-width="900">
       <dialog-template @close="previewDialog = false">
-        <pdf-viewer
-          :src="pdf"
-        />
+        <pdf-viewer :src="pdf" />
       </dialog-template>
     </v-dialog>
 
-    <v-dialog
-      v-model="cancelDialog"
-      persistent
-      value="''"
-      max-width="600"
-    >
-      <cancel-dialog
-        @close="cancelDialog = false"
-        @submit="cancelForm"
-      />
+    <v-dialog v-model="cancelDialog" persistent value="''" max-width="600">
+      <cancel-dialog @close="cancelDialog = false" @submit="cancelForm" />
     </v-dialog>
     <!-- <bottom-bar :progress="progress" @preview="preview" v-if="step !== 0" /> -->
   </div>
@@ -129,62 +113,51 @@ export default {
         filingPlan: "",
         confirmation: {
           military_tenant: {
-            text:
-              "To your knowledge, no tenant in the property is a member of the United States Armed Forces, and the premises is not used for dwelling of the spouse, a child or other dependents of a person in the military.",
+            text: "To your knowledge, no tenant in the property is a member of the United States Armed Forces, and the premises is not used for dwelling of the spouse, a child or other dependents of a person in the military.",
             confirmed: true,
           },
           registered_leasehold: {
-            text:
-              "The landlord has registered the leasehold and notified tenant as required by <b>N.J.S.A. 46:8-27</b>.",
+            text: "The landlord has registered the leasehold and notified tenant as required by <b>N.J.S.A. 46:8-27</b>.",
             confirmed: true,
           },
           ownership: {
-            text:
-              "The landlord has acquired ownership of the property from the tenants.",
+            text: "The landlord has acquired ownership of the property from the tenants.",
             confirmed: false,
           },
           option_to_purchase: {
-            text:
-              "The landlord has given the tenant(s) the option to purchase the property.",
+            text: "The landlord has given the tenant(s) the option to purchase the property.",
             confirmed: false,
           },
           additional_reasons: {
-            text:
-              "The landlord seeks a judgment for possession for the additional or alternative reason(s) stated in the notices attached to this complaint.",
+            text: "The landlord seeks a judgment for possession for the additional or alternative reason(s) stated in the notices attached to this complaint.",
             confirmed: false,
           },
           tenant_continues_possession: {
-            text:
-              "The tenant(s) has/have not surrendered possession of the premises and tenant(s) hold(s) over and continues in possession without the consent of landlord.",
+            text: "The tenant(s) has/have not surrendered possession of the premises and tenant(s) hold(s) over and continues in possession without the consent of landlord.",
             confirmed: true,
           },
         },
         verification: {
           read_info_true: {
-            text:
-              "I have read the verified complaint and the information contained in it is true and based upon my personal knowledge.",
+            text: "I have read the verified complaint and the information contained in it is true and based upon my personal knowledge.",
             confirmed: true,
           },
           another_court_subject: {
-            text:
-              "The matter in controversy is not the subject of another court action or arbitration now pending or contemplated and no other parties should be joined in this action.",
+            text: "The matter in controversy is not the subject of another court action or arbitration now pending or contemplated and no other parties should be joined in this action.",
             confirmed: true,
             action: "",
           },
           another_party: {
-            text:
-              "There is another party that should be joined in this action.",
+            text: "There is another party that should be joined in this action.",
             confirmed: false,
             party: "",
           },
           confidential_personal_removed: {
-            text:
-              "I certify that confidential personal identifiers have been redacted from documents now submitted to the court, and will be redacted from all documents submitted in the future in accordance with Rule 1:38-7(b).",
+            text: "I certify that confidential personal identifiers have been redacted from documents now submitted to the court, and will be redacted from all documents submitted in the future in accordance with Rule 1:38-7(b).",
             confirmed: true,
           },
           statements_true: {
-            text:
-              "The foregoing statements made by me are true and I am aware that if any of the foregoing statements made by me are willfully false, I am subject to punishment.",
+            text: "The foregoing statements made by me are true and I am aware that if any of the foregoing statements made by me are willfully false, I am subject to punishment.",
             confirmed: true,
           },
           interpreter: {
@@ -193,8 +166,7 @@ export default {
             language: "",
           },
           disability: {
-            text:
-              "At the trial, Plaintiff will require an accommodation for a disability.",
+            text: "At the trial, Plaintiff will require an accommodation for a disability.",
             confirmed: false,
             accommodation: "",
           },
@@ -375,8 +347,8 @@ export default {
           };
         case 9:
           return {
-            name: "vc-filing"            
-          }
+            name: "vc-filing",
+          };
         case 10:
           return {
             name: "vc-signature",
@@ -419,7 +391,7 @@ export default {
       }
     },
     "case.property": function (val) {
-      console.log('case property change', val)
+      console.log("case property change", val);
       //load courtInfo for PDF
       this.$http
         .get(`${process.env.VUE_APP_URL}/courtServiceInfo`, {
@@ -428,7 +400,7 @@ export default {
           },
         })
         .then((r) => r.data)
-        .then((data) => {          
+        .then((data) => {
           this.courtInfo = data;
         });
 
@@ -459,6 +431,16 @@ export default {
     //   this.$store.commit("set_redirect", "verified-complaint");
     //   this.$router.push("/register");
     // }
+    this.$http
+      .get(`${process.env.VUE_APP_URL}/allCities`)
+      .then((results) => results.data)
+      .then((data) => {
+        this.allCitiesandSubs = data;
+        this.$store.commit("set_all_cities_and_subs", data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
   methods: {
     next() {
@@ -476,7 +458,7 @@ export default {
       this.cancelDialog = false;
       this.$router.push("/");
     },
-    loadData(caseId) {      
+    loadData(caseId) {
       this.$http
         .get(`${process.env.VUE_APP_URL}/case/${caseId}`)
         .then((r) => r.data)
@@ -535,11 +517,11 @@ export default {
           // this.case.documents: [],
           this.case.attorneyId = data.attorneyId;
           this.case.serviceId = data.servicePlanId;
-          this.case.filingPlan = data.filingPlan;          
+          this.case.filingPlan = data.filingPlan;
         });
     },
     propertyCompleted(property) {
-      this.property = property;
+      this.case.property = property;
       this.$router.push({ name: "vc-tenants" });
     },
     update({ data, steps }) {
@@ -552,9 +534,9 @@ export default {
       }
     },
     updateProperty({ steps }) {
-      console.log('updateProperty', steps);
+      console.log("updateProperty", steps);
       for (const key in steps) {
-        this.steps.property.children[key].status = steps[key];        
+        this.steps.property.children[key].status = steps[key];
       }
     },
     submit() {
@@ -567,7 +549,7 @@ export default {
       this.saving = true;
 
       this.$store.commit("set_current_property", {});
-      if (this.$store.getters.isAuthenticated) {        
+      if (this.$store.getters.isAuthenticated) {
         if (!this.case.id) {
           //TODO: change action when in api if submitted or not
           this.$http
@@ -579,7 +561,7 @@ export default {
               submitted: submitted,
             })
             .then((r) => r.data)
-            .then((data) => {              
+            .then((data) => {
               this.case.id = data;
               this.saving = false;
             });
@@ -603,7 +585,7 @@ export default {
         //     clientId: this.client.id
         // }).then(r => r.data)
         // .then(data=>{
-        //     //data should be the id of the previously created item        
+        //     //data should be the id of the previously created item
         //     this.$http.post(`${process.env.VUE_APP_URL}/cart`, {
         //     itemId: data,
         //     clientId: this.client.id,
@@ -682,7 +664,7 @@ export default {
         date: moment().format("MM/DD/YYYY"),
         // signerType: this.signerType(),
         signerType: this.case.signatureBlock,
-      };      
+      };
       let templateName = `verified_complaint_nonpayment`;
       this.renderTemplate(templateData, templateName, preview, showDialog);
     },
@@ -728,9 +710,9 @@ export default {
             watermark: preview,
           })
           .then((response) => {
-            if (!response.data) throw "no data";            
+            if (!response.data) throw "no data";
             const linkSource = `data:application/pdf;base64,${response.data}`;
-            this.pdf = linkSource;            
+            this.pdf = linkSource;
             this.oldTemplateData = templateData;
             if (preview && showDialog) {
               //if preview
@@ -739,12 +721,12 @@ export default {
               this.createLink(linkSource);
             }
           })
-          .catch((err) => {            
+          .catch((err) => {
             if (err === "no data") {
               this.renderTemplate(templateData, templateName, preview);
             }
           });
-      } else if (showDialog) {        
+      } else if (showDialog) {
         //if template data is the not same as the last time, we will preview and will show old pdf
         this.previewDialog = true;
       }
@@ -791,7 +773,7 @@ export default {
       return this.case.property.deedNames.join(", ");
     },
     calculateNextAmount() {
-      if (!this.rentAmount) return "$0.00";      
+      if (!this.rentAmount) return "$0.00";
       return this.feesTotal + this.rentAmount;
     },
     dayToNumber(day) {
@@ -959,22 +941,22 @@ export default {
     //     });
     //     this.case.utilities.forEach(rent => {
     //         if(rent.amount){
-    //             total += parseFloat(rent.amount)    
+    //             total += parseFloat(rent.amount)
     //         }
     //     });
     //     this.case.lateCharges.forEach(rent => {
     //         if(rent.amount){
-    //             total += parseFloat(rent.calculatedAmount)    
+    //             total += parseFloat(rent.calculatedAmount)
     //         }
     //     });
     //     this.case.fees.forEach(rent => {
     //         if(rent.amount){
-    //             total += parseFloat(rent.amount)    
+    //             total += parseFloat(rent.amount)
     //         }
     //     });
     //     this.case.otherCharges.forEach(rent => {
     //         if(rent.amount){
-    //             total += parseFloat(rent.amount)    
+    //             total += parseFloat(rent.amount)
     //         }
     //     });
     //     if (this.legalFeesPermitted){
@@ -1115,7 +1097,7 @@ export default {
               today.add(1, "months").month(),
               parseFloat(this.case.rentDueBy),
             ]);
-            this.rentDueBeforeTrial = dueDate;            
+            this.rentDueBeforeTrial = dueDate;
           }
           return dueDate.format("MM/DD/YYYY");
         case "Weekly":

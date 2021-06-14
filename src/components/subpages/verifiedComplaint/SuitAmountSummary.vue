@@ -324,7 +324,6 @@ export default {
       return this.calculateTotal(this.lateCharges) + this.calculateTotal(this.utilities) + this.calculateTotal(this.fees) + this.calculateTotal(this.otherCharges);
     },
     calculateLegalTotal() {
-      console.log(this.property);
       const propertyCity = this.$store.getters.allCitiesAndSubs.find(city => city.name == this.property.city);
       return propertyCity ? propertyCity.mileagePrice : 0;
     }
