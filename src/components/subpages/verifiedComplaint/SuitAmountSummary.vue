@@ -9,36 +9,20 @@
       <v-icon>mdi-close</v-icon>
     </v-btn>
 
-    <div
-      style="width: 80%"
-      class="pt-10 pb-4 mx-auto text-left"
-    >
-      <div class="custom-title pt-8 pb-4">
-        Summary of Suit Amount
-      </div>
+    <div style="width: 80%" class="pt-10 pb-4 mx-auto text-left">
+      <div class="custom-title pt-8 pb-4">Summary of Suit Amount</div>
       <div class="pb-6">
         Based on the information provided, these are the total amounts due, to
         be added to your suit and requested in the Verified Complaint. Review
         carefully and confirm each amount, edit or delete.
       </div>
     </div>
-    <v-container
-      v-for="item in items"
-      :key="item.name"
-      fluid
-      class="pa-0 mb-4"
-    >
-      <v-row
-        no-gutters
-        justify-center
-      >
+    <v-container v-for="item in items" :key="item.name" fluid class="pa-0 mb-4">
+      <v-row no-gutters justify-center>
         <v-col class="d-flex justify-center">
           <!-- <v-checkbox v-model="item.completed" large class="primary-checkbox" off-icon="mdi-checkbox-blank-circle-outline" on-icon="mdi-check-circle">
                   </v-checkbox> -->
-          <checkbox
-            v-model="item.completed"
-            style="margin-top: 70px"
-          />
+          <checkbox v-model="item.completed" style="margin-top: 70px" />
         </v-col>
         <v-col cols="10">
           <v-container>
@@ -65,9 +49,7 @@
                   <div
                     class="elevated-bar-btn d-flex align-center justify-center"
                   >
-                    <v-icon
-                      style="font-size: 75px; color: #93aebf"
-                    >
+                    <v-icon style="font-size: 75px; color: #93aebf">
                       mdi-menu-{{ direction(item.name) }}
                     </v-icon>
                   </div>
@@ -78,34 +60,32 @@
               <v-row class="mt-4">
                 <v-col cols="6">
                   <div
-                    class="text-left pl-8 font-weight-medium info--text text-uppercase"
+                    class="
+                      text-left
+                      pl-8
+                      font-weight-medium
+                      info--text
+                      text-uppercase
+                    "
                     style="font-size: 0.9rem"
                   >
                     INCLUDES
                   </div>
                 </v-col>
               </v-row>
-              <v-row
-                v-for="row in item.amounts"
-                :key="row.dates"
-              >
-                <v-col
-                  cols="6"
-                  class="py-1"
-                >
-                  <div
-                    class="text-left pl-8"
-                    style="font-size: 0.9rem"
-                  >
+              <v-row v-for="row in item.amounts" :key="row.dates">
+                <v-col cols="6" class="py-1">
+                  <div class="text-left pl-8" style="font-size: 0.9rem">
                     {{
-                      item.name === "Past Due Rent" ? row.timePeriodDisplay : ( row.type ? row.type : row.title )
+                      item.name === "Past Due Rent"
+                        ? row.timePeriodDisplay
+                        : row.type
+                        ? row.type
+                        : row.title
                     }}
                   </div>
                 </v-col>
-                <v-col
-                  cols="3"
-                  class="py-1"
-                >
+                <v-col cols="3" class="py-1">
                   <div
                     class="text-right font-weight-medium"
                     style="font-size: 0.9rem"
@@ -119,12 +99,7 @@
           </v-container>
         </v-col>
         <v-col class="d-flex justify-center">
-          <v-menu
-            offset-y
-            bottom
-            left
-            open-on-hover
-          >
+          <v-menu offset-y bottom left open-on-hover>
             <template v-slot:activator="{ on }">
               <v-btn
                 style="margin-top: 70px"
@@ -145,20 +120,13 @@
                             style="font-size: 20px"
                             :class="`icofont-search-document pr-4`"
                           ></i> -->
-                  <v-icon
-                    color="info"
-                    class="pr-4"
-                  >
-                    $pencil
-                  </v-icon>
+                  <v-icon color="info" class="pr-4"> $pencil </v-icon>
                   EDIT
                 </v-list-item-title>
               </v-list-item>
 
               <v-list-item @click="deleteUpload(item.id)">
-                <v-list-item-title
-                  class="overline info--text"
-                >
+                <v-list-item-title class="overline info--text">
                   <i
                     style="font-size: 20px"
                     :class="`icofont-close-circled pr-4`"
@@ -206,7 +174,7 @@
       >
         continue
       </v-btn>
-    </v-card-actions>    
+    </v-card-actions>
   </div>
 </template>
 
@@ -239,7 +207,12 @@ export default {
         {
           name: "Additional Charges",
           total: this.calculateAdditionalChargeTotal(),
-          amounts: [...this.groupLateCharges(), ...this.utilities, ...this.fees, ...this.otherCharges]
+          amounts: [
+            ...this.groupLateCharges(),
+            ...this.utilities,
+            ...this.fees,
+            ...this.otherCharges,
+          ],
         },
         {
           name: "Legal Fees",
@@ -297,7 +270,7 @@ export default {
       let total = 0;
       arr.forEach((item) => {
         if (item.amount) {
-          total += parseFloat(item.amount);          
+          total += parseFloat(item.amount);
         }
       });
       return total;
@@ -307,27 +280,37 @@ export default {
       console.log(this.lateCharges);
 
       // Group the price items by type
-      this.lateCharges.map(item => {
-        let existItem = groupedItems.find(group => group.type === item.type);
-        if(existItem) {
-          existItem.amount = parseFloat(existItem.amount) + parseFloat(item.amount);
-        }
-        else {
+      this.lateCharges.map((item) => {
+        let existItem = groupedItems.find((group) => group.type === item.type);
+        if (existItem) {
+          existItem.amount =
+            parseFloat(existItem.amount) + parseFloat(item.amount);
+        } else {
           groupedItems.push(item);
         }
         return item;
-      })
+      });
       return groupedItems;
     },
     calculateAdditionalChargeTotal() {
-      console.log(this.calculateTotal(this.lateCharges) + this.calculateTotal(this.utilities) + this.calculateTotal(this.fees) + this.calculateTotal(this.otherCharges));
-      return this.calculateTotal(this.lateCharges) + this.calculateTotal(this.utilities) + this.calculateTotal(this.fees) + this.calculateTotal(this.otherCharges);
+      console.log(
+        this.calculateTotal(this.lateCharges) +
+          this.calculateTotal(this.utilities) +
+          this.calculateTotal(this.fees) +
+          this.calculateTotal(this.otherCharges)
+      );
+      return (
+        this.calculateTotal(this.lateCharges) +
+        this.calculateTotal(this.utilities) +
+        this.calculateTotal(this.fees) +
+        this.calculateTotal(this.otherCharges)
+      );
     },
     calculateLegalTotal() {
-      const propertyCity = this.$store.getters.allCitiesAndSubs.find(city => city.name == this.property.city);
-      return propertyCity ? propertyCity.mileagePrice : 0;
-    }
-    
+      // const propertyCity = this.$store.getters.allCitiesAndSubs.find(city => city.name == this.property.city);
+      // return propertyCity ? propertyCity.mileagePrice : 0;
+      return this.mileagePrice;
+    },
   },
 };
 </script>
