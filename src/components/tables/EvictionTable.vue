@@ -128,7 +128,7 @@
       </template>
 
       <template v-slot:[`item.hearingDate`]="{ item }">
-        <div>{{ fixDate(item.hearingDate) }}</div>
+        <div>{{ "Pending" }}</div>
       </template>
 
       <template v-slot:[`item.suit`]="{ item }">
