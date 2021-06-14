@@ -14,16 +14,10 @@
       style="width: 80%"
       class="pt-10 pb-4 mx-auto text-left"
     >
-      <div class="custom-title pt-8">
-        Tenant Information
-      </div>
+      <div class="custom-title pt-8">Tenant Information</div>
 
-      <div class="custom-subtitle mb-4 mt-10">
-        Tenant is a(n)...
-      </div>
-      <div class="pb-4">
-        Select the option that best describes the tenant.
-      </div>
+      <div class="custom-subtitle mb-4 mt-10">Tenant is a(n)...</div>
+      <div class="pb-4">Select the option that best describes the tenant.</div>
       <div class="d-flex pt-6">
         <div
           class="d-flex align-center justify-center"
@@ -32,10 +26,9 @@
           ]"
           @click="tenantType = 'Individual'"
         >
-          <span
-            class="font-weight-medium"
-            style="letter-spacing: 1.68px"
-          >INDIVIDUAL</span>
+          <span class="font-weight-medium" style="letter-spacing: 1.68px"
+            >INDIVIDUAL</span
+          >
         </div>
         <div
           class="ml-8 d-flex align-center justify-center"
@@ -44,43 +37,27 @@
           ]"
           @click="tenantType = 'Corporation'"
         >
-          <span
-            class="font-weight-medium"
-            style="letter-spacing: 1.68px"
-          >CORPORATION</span>
+          <span class="font-weight-medium" style="letter-spacing: 1.68px"
+            >CORPORATION</span
+          >
         </div>
       </div>
 
-      <div
-        class="font-weight-medium mb-4 mt-12"
-        style="font-size: 28px"
-      >
+      <div class="font-weight-medium mb-4 mt-12" style="font-size: 28px">
         Tenant <span v-if="tenantType !== 'Corporation'">Name</span>
       </div>
-      <div
-        v-show="tenantType !== 'Corporation'"
-        class="pb-4"
-      >
+      <div v-show="tenantType !== 'Corporation'" class="pb-4">
         All persons on the lease, eighteen (18) years of age and older, must be
         added. They will be considered a Defendant in the suit. The court
         charges a $5.00 fee per Defendant. This will be added to the cost of
         this form.
       </div>
-      <div
-        v-show="tenantType === 'Corporation'"
-        class="pb-4"
-      >
-        Fill text
-      </div>
+      <div v-show="tenantType === 'Corporation'" class="pb-4">Fill text</div>
 
       <div class="font-weight-medium pb-2 pt-6">
         {{ tenantType === "Corporation" ? "Company" : "Full" }} Name
       </div>
-      <div
-        v-for="(tenant, index) in tenants"
-        :key="index"
-        class="pb-2 d-flex"
-      >
+      <div v-for="(tenant, index) in tenants" :key="index" class="pb-2 d-flex">
         <v-text-field
           v-model="tenant.name"
           rounded
@@ -102,9 +79,7 @@
             }"
             @click="deleteItem(index, tenants)"
           >
-            <v-icon style="font-size: 28px">
-              mdi-close-circle-outline
-            </v-icon>
+            <v-icon style="font-size: 28px"> mdi-close-circle-outline </v-icon>
           </v-btn>
 
           <v-btn
@@ -117,16 +92,12 @@
             tile
             @click="addTenant"
           >
-            <v-icon style="font-size: 28px">
-              mdi-plus-circle-outline
-            </v-icon>
+            <v-icon style="font-size: 28px"> mdi-plus-circle-outline </v-icon>
           </v-btn>
         </div>
       </div>
 
-      <div class="custom-subtitle mb-4 mt-12">
-        Contact Information
-      </div>
+      <div class="custom-subtitle mb-4 mt-12">Contact Information</div>
       <div class="pb-4">
         The court may need to reach the tenant regarding this matter. Please
         provide the most recent contact information you have for the tenant.
@@ -152,9 +123,7 @@
         rules-type="none"
       />
 
-      <div class="font-weight-medium py-2">
-        Phone Number
-      </div>
+      <div class="font-weight-medium py-2">Phone Number</div>
       <v-text-field
         v-model="formatPhone"
         rounded
@@ -167,9 +136,7 @@
       />
 
       <div v-if="tenantType === 'Corporation'">
-        <div class="custom-subtitle mb-4 mt-12">
-          Mailing Address
-        </div>
+        <div class="custom-subtitle mb-4 mt-12">Mailing Address</div>
         <div class="pb-4">
           Provide the tenant’s mailing address. We’ve used the property address
           as the default; edit if not correct. This address will be used by the
@@ -181,14 +148,8 @@
           style="width: 100%"
         >
           <v-container class="px-8">
-            <v-row
-              no-gutters
-              align="center"
-            >
-              <v-col
-                cols="7"
-                class="secondary--text"
-              >
+            <v-row no-gutters align="center">
+              <v-col cols="7" class="secondary--text">
                 <div>{{ mailingAddress.address }}</div>
                 <div>
                   {{ mailingAddress.city }}, {{ mailingAddress.state }}
@@ -196,10 +157,7 @@
                 </div>
               </v-col>
               <v-spacer />
-              <v-col
-                cols="1"
-                class="d-flex justify-end"
-              >
+              <v-col cols="1" class="d-flex justify-end">
                 <v-btn
                   color="accent_light"
                   class="btn--plain"
@@ -207,9 +165,7 @@
                   small
                   @click="mailingDialogOpen = true"
                 >
-                  <v-icon small>
-                    $pencil
-                  </v-icon>
+                  <v-icon small> $pencil </v-icon>
                 </v-btn>
               </v-col>
             </v-row>
@@ -218,10 +174,7 @@
       </div>
     </v-form>
 
-    <v-dialog
-      v-model="mailingDialogOpen"
-      :max-width="800"
-    >
+    <v-dialog v-model="mailingDialogOpen" :max-width="800">
       <address-dialog
         @close:dialog="mailingDialogOpen = false"
         @add="addMailingAddress"
@@ -330,6 +283,7 @@ export default {
       state: this.property.state,
       zipcode: this.property.zipcode,
     };
+
     if (!this.$store.getters.isAuthenticated) {
       this.loading = false;
       this.tenantsOnFile = false;
