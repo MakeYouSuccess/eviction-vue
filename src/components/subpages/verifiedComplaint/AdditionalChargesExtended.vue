@@ -29,83 +29,88 @@
           <div class="custom-subtitle">
             Late Charges
           </div>
+
+          <!-- Items -->
+          <div
+            class="mt-4"
+            style="max-height: 420px"
+          >
+            <vue-scroll :ops="ops">
+              <v-list style="background-color: transparent">
+                <v-list-item
+                  v-for="(item, index) in lateCharges"
+                  :key="index"
+                  :class="[
+                    item.selected
+                      ? 'selection-border-selected'
+                      : 'selection-border',
+                  ]"
+                  class="py-1 mb-2"
+                  style="height: 105px;"
+                >
+                  <v-container class="px-10">
+                    <v-row align="center">
+                      <v-col>
+                        <div
+                          class="secondary--text"
+                          style="font-size: 0.85rem"
+                        >
+                          {{ item.timePeriodDisplay }}
+                        </div>
+                        <span
+                          :class="[
+                            item.selected ? 'secondary--text' : 'info--text',
+                          ]"
+                          class="d-flex"
+                        >$<editable-field
+                          v-show="item.selected"
+                          v-model="item.amount"
+                          style="min-width: 20px"
+                        /></span>
+                        <div
+                          class="font-weight-medium info--text text-uppercase caption"
+                          style="font-size: 0.85rem"
+                        >
+                          {{ item.type.substring(12) }}
+                        </div>
+                      </v-col>
+                      <v-col
+                        cols="2"
+                        class="d-flex justify-end align-end"
+                      >
+                        <checkbox v-model="item.selected" />
+                        <div @click="deleteItem(index, lateCharges)">
+                          <v-icon
+                            style="font-size: 28px"
+                            color="info"
+                          >
+                            mdi-close-circle-outline
+                          </v-icon>
+                        </div>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-list-item>
+              </v-list>
+            </vue-scroll>
+          </div>
+
           <div class="d-flex align-center mt-3">
-            <v-btn
-              fab
-              depressed
-              color="accent"
-              height="30"
-              width="30"
+            <v-btn                            
+              class="btn--plain"
+              color="accent"              
+              icon
+              tile
               @click="lateChargesOpen = true"
             >
-              <span
-                class="white--text font-weight-regular"
-                style="font-size: 30px"
-              >+</span>
+              <v-icon style="font-size: 28px">
+                mdi-plus-circle-outline
+              </v-icon>
             </v-btn>
-            <div class="ml-5">
+            <div class="ml-3 info--text text-uppercase">
               Add LATE CHARGES
             </div>
           </div>
-        </div>        
-
-        <!-- Items -->
-        <div
-          class="mt-4"
-          style="max-height: 420px"
-        >
-          <vue-scroll :ops="ops">
-            <v-list style="background-color: transparent">
-              <v-list-item
-                v-for="(item, index) in lateCharges"
-                :key="index"
-                :class="[
-                  item.selected
-                    ? 'selection-border-selected'
-                    : 'selection-border',
-                ]"
-                class="py-1 mr-4 mb-2"
-                style="height: 105px; margin-left: 69px"
-              >
-                <v-container class="px-10">
-                  <v-row align="center">
-                    <v-col>
-                      <div
-                        class="secondary--text"
-                        style="font-size: 0.85rem"
-                      >
-                        {{ item.timePeriodDisplay }}
-                      </div>
-                      <span
-                        :class="[
-                          item.selected ? 'secondary--text' : 'info--text',
-                        ]"
-                        class="d-flex"
-                      >$<editable-field
-                        v-show="item.selected"
-                        v-model="item.amount"
-                        style="min-width: 20px"
-                      /></span>
-                    </v-col>
-                    <v-col
-                      cols="2"
-                      class="d-flex justify-end align-end"
-                    >
-                      <checkbox v-model="item.selected" />
-                      <div @click="deleteItem(index, lateCharges)">
-                        <v-icon
-                          style="font-size: 28px"
-                          color="info"
-                        >
-                          mdi-close-circle-outline
-                        </v-icon>
-                      </div>
-                    </v-col>
-                  </v-row>
-                </v-container>
-              </v-list-item>
-            </v-list>
-          </vue-scroll>
         </div>
 
         <v-dialog
@@ -127,89 +132,88 @@
           <div class="custom-subtitle">
             Utilities
           </div>
+          
+          <!-- Items -->
+          <div
+            class="mt-4"
+            style="max-height: 420px"
+          >
+            <vue-scroll :ops="ops">
+              <v-list style="background-color: transparent">
+                <v-list-item
+                  v-for="(item, index) in utilities"
+                  :key="index"
+                  :class="[
+                    item.selected
+                      ? 'selection-border-selected'
+                      : 'selection-border',
+                  ]"
+                  class="py-1 mb-2"
+                  style="height: 105px;"
+                >
+                  <v-container class="px-10">
+                    <v-row align="center">
+                      <v-col>
+                        <div
+                          class="secondary--text"
+                          style="font-size: 0.85rem"
+                        >
+                          {{ item.timePeriodDisplay }}
+                        </div>
+                        <span
+                          :class="[
+                            item.selected ? 'secondary--text' : 'info--text',
+                          ]"
+                          class="d-flex"
+                        >$<editable-field
+                          v-show="item.selected"
+                          v-model="item.amount"
+                          style="min-width: 20px"
+                        /></span>
+                        <div
+                          class="font-weight-medium info--text text-uppercase caption"
+                          style="font-size: 0.85rem"
+                        >
+                          {{ item.type }}
+                        </div>
+                      </v-col>
+                      <v-col
+                        cols="2"
+                        class="d-flex justify-end align-end"
+                      >
+                        <checkbox v-model="item.selected" />
+                        <div @click="deleteItem(index, utilities)">
+                          <v-icon
+                            style="font-size: 28px"
+                            color="info"
+                          >
+                            mdi-close-circle-outline
+                          </v-icon>
+                        </div>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-list-item>
+              </v-list>
+            </vue-scroll>
+          </div>
+
           <div class="d-flex align-center mt-3">
-            <v-btn
-              fab
-              depressed
-              color="accent"
-              height="30"
-              width="30"
+            <v-btn                            
+              class="btn--plain"
+              color="accent"              
+              icon
+              tile
               @click="utilitiesOpen = true"
             >
-              <span
-                class="white--text font-weight-regular"
-                style="font-size: 30px"
-              >+</span>
-            </v-btn>
-            <div class="ml-5">
+              <v-icon style="font-size: 28px">
+                mdi-plus-circle-outline
+              </v-icon>
+            </v-btn>            
+            <div class="ml-3 info--text text-uppercase">
               Add UTILITIES
             </div>
           </div>
-        </div>        
-
-        <!-- Items -->
-        <div
-          class="mt-4"
-          style="max-height: 420px"
-        >
-          <vue-scroll :ops="ops">
-            <v-list style="background-color: transparent">
-              <v-list-item
-                v-for="(item, index) in utilities"
-                :key="index"
-                :class="[
-                  item.selected
-                    ? 'selection-border-selected'
-                    : 'selection-border',
-                ]"
-                class="py-1 mr-4 mb-2"
-                style="height: 105px; margin-left: 69px"
-              >
-                <v-container class="px-10">
-                  <v-row align="center">
-                    <v-col>
-                      <div
-                        class="secondary--text"
-                        style="font-size: 0.85rem"
-                      >
-                        {{ item.timePeriodDisplay }}
-                      </div>
-                      <span
-                        :class="[
-                          item.selected ? 'secondary--text' : 'info--text',
-                        ]"
-                        class="d-flex"
-                      >$<editable-field
-                        v-show="item.selected"
-                        v-model="item.amount"
-                        style="min-width: 20px"
-                      /></span>
-                      <div
-                        class="font-weight-medium info--text text-uppercase caption"
-                        style="font-size: 0.85rem"
-                      >
-                        {{ item.type }}
-                      </div>
-                    </v-col>
-                    <v-col
-                      cols="2"
-                      class="d-flex justify-end align-end"
-                    >
-                      <checkbox v-model="item.selected" />
-                      <div @click="deleteItem(index, utilities)">
-                        <v-icon
-                          style="font-size: 28px"
-                          color="info"
-                        >
-                          mdi-close-circle-outline
-                        </v-icon>
-                      </div>
-                    </v-col>
-                  </v-row>
-                </v-container>
-              </v-list-item>
-            </v-list>
-          </vue-scroll>
         </div>
 
         <v-dialog
@@ -233,89 +237,88 @@
           <div class="custom-subtitle">
             Fees
           </div>
+
+          <!-- Items -->
+          <div
+            class="mt-4"
+            style="max-height: 420px"
+          >
+            <vue-scroll :ops="ops">
+              <v-list style="background-color: transparent">
+                <v-list-item
+                  v-for="(item, index) in fees"
+                  :key="index"
+                  :class="[
+                    item.selected
+                      ? 'selection-border-selected'
+                      : 'selection-border',
+                  ]"
+                  class="py-1 mb-2"
+                  style="height: 105px;"
+                >
+                  <v-container class="px-10">
+                    <v-row align="center">
+                      <v-col>
+                        <div
+                          class="secondary--text"
+                          style="font-size: 0.85rem"
+                        >
+                          {{ item.timePeriodDisplay }}
+                        </div>
+                        <span
+                          :class="[
+                            item.selected ? 'secondary--text' : 'info--text',
+                          ]"
+                          class="d-flex"
+                        >$<editable-field
+                          v-show="item.selected"
+                          v-model="item.amount"
+                          style="min-width: 20px"
+                        /></span>
+                        <div
+                          class="font-weight-medium info--text text-uppercase caption"
+                          style="font-size: 0.85rem"
+                        >
+                          {{ item.type }}
+                        </div>
+                      </v-col>
+                      <v-col
+                        cols="2"
+                        class="d-flex justify-end align-end"
+                      >
+                        <checkbox v-model="item.selected" />
+                        <div @click="deleteItem(index, fees)">
+                          <v-icon
+                            style="font-size: 28px"
+                            color="info"
+                          >
+                            mdi-close-circle-outline
+                          </v-icon>
+                        </div>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-list-item>
+              </v-list>
+            </vue-scroll>
+          </div>
+
           <div class="d-flex align-center mt-3">
-            <v-btn
-              fab
-              depressed
-              color="accent"
-              height="30"
-              width="30"
+            <v-btn                            
+              class="btn--plain"
+              color="accent"              
+              icon
+              tile
               @click="feesOpen = true"
             >
-              <span
-                class="white--text font-weight-regular"
-                style="font-size: 30px"
-              >+</span>
-            </v-btn>
-            <div class="ml-5">
+              <v-icon style="font-size: 28px">
+                mdi-plus-circle-outline
+              </v-icon>
+            </v-btn>            
+            <div class="ml-3 info--text text-uppercase">
               Add Fees
             </div>
           </div>
-        </div>        
-
-        <!-- Items -->
-        <div
-          class="mt-4"
-          style="max-height: 420px"
-        >
-          <vue-scroll :ops="ops">
-            <v-list style="background-color: transparent">
-              <v-list-item
-                v-for="(item, index) in fees"
-                :key="index"
-                :class="[
-                  item.selected
-                    ? 'selection-border-selected'
-                    : 'selection-border',
-                ]"
-                class="py-1 mr-4 mb-2"
-                style="height: 105px; margin-left: 69px"
-              >
-                <v-container class="px-10">
-                  <v-row align="center">
-                    <v-col>
-                      <div
-                        class="secondary--text"
-                        style="font-size: 0.85rem"
-                      >
-                        {{ item.timePeriodDisplay }}
-                      </div>
-                      <span
-                        :class="[
-                          item.selected ? 'secondary--text' : 'info--text',
-                        ]"
-                        class="d-flex"
-                      >$<editable-field
-                        v-show="item.selected"
-                        v-model="item.amount"
-                        style="min-width: 20px"
-                      /></span>
-                      <div
-                        class="font-weight-medium info--text text-uppercase caption"
-                        style="font-size: 0.85rem"
-                      >
-                        {{ item.type }}
-                      </div>
-                    </v-col>
-                    <v-col
-                      cols="2"
-                      class="d-flex justify-end align-end"
-                    >
-                      <checkbox v-model="item.selected" />
-                      <div @click="deleteItem(index, fees)">
-                        <v-icon
-                          style="font-size: 28px"
-                          color="info"
-                        >
-                          mdi-close-circle-outline
-                        </v-icon>
-                      </div>
-                    </v-col>
-                  </v-row>
-                </v-container>
-              </v-list-item>
-            </v-list>
-          </vue-scroll>
         </div>
 
         <v-dialog
@@ -339,89 +342,88 @@
           <div class="custom-subtitle">
             Other
           </div>
+
+          <!-- Items -->
+          <div
+            class="mt-4"
+            style="max-height: 420px"
+          >
+            <vue-scroll :ops="ops">
+              <v-list style="background-color: transparent">
+                <v-list-item
+                  v-for="(item, index) in otherCharges"
+                  :key="index"
+                  :class="[
+                    item.selected
+                      ? 'selection-border-selected'
+                      : 'selection-border',
+                  ]"
+                  class="py-1 mb-2"
+                  style="height: 105px;"
+                >
+                  <v-container class="px-10">
+                    <v-row align="center">
+                      <v-col>
+                        <div
+                          class="secondary--text"
+                          style="font-size: 0.85rem"
+                        >
+                          {{ item.timePeriodDisplay }}
+                        </div>
+                        <span
+                          :class="[
+                            item.selected ? 'secondary--text' : 'info--text',
+                          ]"
+                          class="d-flex"
+                        >$<editable-field
+                          v-show="item.selected"
+                          v-model="item.amount"
+                          style="min-width: 20px"
+                        /></span>
+                        <div
+                          class="font-weight-medium info--text text-uppercase caption"
+                          style="font-size: 0.85rem"
+                        >
+                          {{ item.type }}
+                        </div>
+                      </v-col>
+                      <v-col
+                        cols="2"
+                        class="d-flex justify-end align-end"
+                      >
+                        <checkbox v-model="item.selected" />
+                        <div @click="deleteItem(index, otherCharges)">
+                          <v-icon
+                            style="font-size: 28px"
+                            color="info"
+                          >
+                            mdi-close-circle-outline
+                          </v-icon>
+                        </div>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-list-item>
+              </v-list>
+            </vue-scroll>
+          </div>
+
           <div class="d-flex align-center mt-3">
-            <v-btn
-              fab
-              depressed
-              color="accent"
-              height="30"
-              width="30"
+            <v-btn                            
+              class="btn--plain"
+              color="accent"              
+              icon
+              tile
               @click="otherOpen = true"
             >
-              <span
-                class="white--text font-weight-regular"
-                style="font-size: 30px"
-              >+</span>
-            </v-btn>
-            <div class="ml-5">
+              <v-icon style="font-size: 28px">
+                mdi-plus-circle-outline
+              </v-icon>
+            </v-btn>            
+            <div class="ml-3 info--text text-uppercase">
               Add Other Fees
             </div>
           </div>
-        </div>
-
-        <!-- Items -->
-        <div
-          class="mt-4"
-          style="max-height: 420px"
-        >
-          <vue-scroll :ops="ops">
-            <v-list style="background-color: transparent">
-              <v-list-item
-                v-for="(item, index) in otherCharges"
-                :key="index"
-                :class="[
-                  item.selected
-                    ? 'selection-border-selected'
-                    : 'selection-border',
-                ]"
-                class="py-1 mr-4 mb-2"
-                style="height: 105px; margin-left: 69px"
-              >
-                <v-container class="px-10">
-                  <v-row align="center">
-                    <v-col>
-                      <div
-                        class="secondary--text"
-                        style="font-size: 0.85rem"
-                      >
-                        {{ item.timePeriodDisplay }}
-                      </div>
-                      <span
-                        :class="[
-                          item.selected ? 'secondary--text' : 'info--text',
-                        ]"
-                        class="d-flex"
-                      >$<editable-field
-                        v-show="item.selected"
-                        v-model="item.amount"
-                        style="min-width: 20px"
-                      /></span>
-                      <div
-                        class="font-weight-medium info--text text-uppercase caption"
-                        style="font-size: 0.85rem"
-                      >
-                        {{ item.type }}
-                      </div>
-                    </v-col>
-                    <v-col
-                      cols="2"
-                      class="d-flex justify-end align-end"
-                    >
-                      <checkbox v-model="item.selected" />
-                      <div @click="deleteItem(index, otherCharges)">
-                        <v-icon
-                          style="font-size: 28px"
-                          color="info"
-                        >
-                          mdi-close-circle-outline
-                        </v-icon>
-                      </div>
-                    </v-col>
-                  </v-row>
-                </v-container>
-              </v-list-item>
-            </v-list>
-          </vue-scroll>
         </div>
 
         <v-dialog
@@ -704,4 +706,7 @@ export default {
 </script>
 
 <style>
+  .text-uppercase {
+    text-transform: uppercase;
+  }
 </style>
