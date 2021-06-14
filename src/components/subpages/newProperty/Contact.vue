@@ -306,7 +306,24 @@ export default {
               contactInfo: this.contactInfo,
               userId: this.client.userId,
             })
-            .then((r) => {              
+            .then((r) => {
+              if(!this.client.defaultContactInfoId) {
+                console.log(this.client);
+              /** Update user information with the contact input */
+              this.$http
+                .put(`${process.env.VUE_APP_URL}/api/update-user`, {
+                  user: {
+                    id: this.client.id,
+                    auth0Id: this.client.auth0Id,
+                    defaultContactInfoId: r.data,
+                  }
+                })
+                .then((r1) => {              
+                  this.$store.commit("set_user", r1.data);
+                });
+              }
+
+              /** Update the property contactInfo Id */
               this.$emit("update", {
                 data: {
                   contactInfoId: r.data,
@@ -315,22 +332,6 @@ export default {
               });
               this.$emit("submit");
             });
-
-
-          if(!this.client.firstName || !this.client.defaultContactInfoId) {
-          /** Update user information with the contact input */
-          this.$http
-            .put(`${process.env.VUE_APP_URL}/api/update-user`, {
-              user: {
-                id: this.client.id,
-                auth0Id: this.client.auth0Id,
-                defaultContactInfoId: this.contactInfo.id,
-              }
-            })
-            .then((r) => {              
-              this.$store.commit("set_user", r.data);
-            });
-          }
         }
       } else {
         this.$emit("update", {
