@@ -320,7 +320,7 @@ export default {
           if(!this.client.firstName || !this.client.defaultContactInfoId) {
           /** Update user information with the contact input */
           this.$http
-            .put(`${process.env.VUE_APP_URL}/update-user`, {
+            .put(`${process.env.VUE_APP_URL}/api/update-user`, {
               user: {
                 id: this.client.id,
                 auth0Id: this.client.auth0Id,
