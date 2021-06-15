@@ -15,7 +15,9 @@
       style="width: 70%"
       class="px-8 pt-10 pb-4 mx-auto text-left"
     >
-      <div class="custom-title py-8">Property Address</div>
+      <div class="custom-title py-8">
+        Property Address
+      </div>
       <div class="text-left">
         <div class="font-weight-medium secondary--text pb-2">
           Street Address
@@ -29,7 +31,9 @@
           background-color="#F0F5F6"
           class="pb-2"
         />
-        <div class="font-weight-medium secondary--text pb-2">Unit/Apt</div>
+        <div class="font-weight-medium secondary--text pb-2">
+          Unit/Apt
+        </div>
         <v-text-field
           v-model="unitNo"
           rounded
@@ -39,7 +43,9 @@
           background-color="#F0F5F6"
           class="pb-2"
         />
-        <div class="font-weight-medium secondary--text pb-2">City</div>
+        <div class="font-weight-medium secondary--text pb-2">
+          City
+        </div>
         <v-autocomplete
           v-model="city"
           :items="items"
@@ -58,18 +64,30 @@
           background-color="#F0F5F6"
           class="pb-2"
         >
-          <template slot="selection" slot-scope="data">
+          <template
+            slot="selection"
+            slot-scope="data"
+          >
             {{ displayCityInfo(data.item) }}
           </template>
-          <template slot="item" slot-scope="data">
+          <template
+            slot="item"
+            slot-scope="data"
+          >
             {{ displayCityInfo(data.item) }}
           </template>
-          <v-icon slot="append" medium color="accent">
+          <v-icon
+            slot="append"
+            medium
+            color="accent"
+          >
             mdi-chevron-down
           </v-icon>
         </v-autocomplete>
 
-        <div class="font-weight-medium secondary--text pb-2">State</div>
+        <div class="font-weight-medium secondary--text pb-2">
+          State
+        </div>
         <v-text-field
           v-model="state"
           item-color="#F6F9FA"
@@ -83,7 +101,9 @@
           class="pb-2"
         />
 
-        <div class="font-weight-medium secondary--text pb-2">Zip Code</div>
+        <div class="font-weight-medium secondary--text pb-2">
+          Zip Code
+        </div>
         <v-text-field
           v-model="zipcode"
           rounded
@@ -94,7 +114,9 @@
           class="pb-2"
         />
 
-        <div class="font-weight-medium secondary--text pb-2">County</div>
+        <div class="font-weight-medium secondary--text pb-2">
+          County
+        </div>
         <v-select
           v-model="county"
           item-color="#F6F9FA"
@@ -108,7 +130,11 @@
           :items="counties"
           class="pb-2"
         >
-          <v-icon slot="append" medium color="accent">
+          <v-icon
+            slot="append"
+            medium
+            color="accent"
+          >
             mdi-chevron-down
           </v-icon>
         </v-select>
@@ -138,7 +164,11 @@
             return-object
             :items="subdivisions"
           >
-            <v-icon slot="append" medium color="accent">
+            <v-icon
+              slot="append"
+              medium
+              color="accent"
+            >
               mdi-chevron-down
             </v-icon>
           </v-select>

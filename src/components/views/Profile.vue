@@ -1,6 +1,6 @@
 <template>
   <div class="pa-12">
-     <!-- {{ client }} -->
+    <!-- {{ client }} -->
     <div class="float-right">
       <p class="blue_grey--text ma-0 font-weight-medium overline">
         Member Since
@@ -19,8 +19,12 @@
           {{ client.firstName.slice(0, 1) }}{{ client.lastName.slice(0, 1) }}
         </v-avatar>
         <div class="ml-3">
-          <p class="custom-subtitle ma-0">{{ userName }}</p>
-          <p class="secondary--text ma-0">{{ client.email }}</p>          
+          <p class="custom-subtitle ma-0">
+            {{ userName }}
+          </p>
+          <p class="secondary--text ma-0">
+            {{ client.email }}
+          </p>          
         </div>
       </div>
       <v-btn
@@ -110,7 +114,7 @@
                   icon
                   color="accent_light"
                 >
-                  <i class="icofont-trash"></i>
+                  <i class="icofont-trash" />
                 </v-btn>
               </v-col>
             </v-row>

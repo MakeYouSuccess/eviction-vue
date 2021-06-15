@@ -14,7 +14,10 @@
       </template>
       <template v-slot:[`item.tenant`]="{ item }">
         <div v-if="expandTenants">
-          <div v-for="tenant in item.tenants" :key="tenant.firstName">
+          <div
+            v-for="tenant in item.tenants"
+            :key="tenant.firstName"
+          >
             {{ tenant.firstName }} {{ tenant.lastName }}
           </div>
           <v-btn
@@ -61,9 +64,20 @@
       </template>
 
       <template v-slot:[`item.menu`]="{ item }">
-        <v-menu offset-y bottom right open-on-hover>
+        <v-menu
+          offset-y
+          bottom
+          right
+          open-on-hover
+        >
           <template v-slot:activator="{ on }">
-            <v-btn small icon color="primary" class="btn--plain" v-on="on">
+            <v-btn
+              small
+              icon
+              color="primary"
+              class="btn--plain"
+              v-on="on"
+            >
               <v-icon>mdi-dots-vertical</v-icon>
             </v-btn>
           </template>
@@ -78,7 +92,11 @@
                 VIEW CASE
               </v-list-item-title>
             </v-list-item>
-            <v-list-item v-for="(btn, i) in btns" :key="i" @click="btn.onclick">
+            <v-list-item
+              v-for="(btn, i) in btns"
+              :key="i"
+              @click="btn.onclick"
+            >
               <v-list-item-title class="overline info--text">
                 <i
                   style="font-size: 20px"
@@ -103,20 +121,33 @@
       </template>
 
       <template v-slot:[`item.representation`]="{ item }">
-        <v-avatar size="30" class="mr-2">
-          <v-img v-if="item.attorneyAvatar" :src="item.attorneyAvatar" />
-          <v-avatar v-else color="secondary_light">
-            <span v-if="item.attorneyFirstName" class="white--text"
-              >{{ item.attorneyFirstName.charAt(0)
-              }}{{ item.attorneyLastName.charAt(0) }}</span
-            >
-            <span v-else class="white--text">PR</span>
+        <v-avatar
+          size="30"
+          class="mr-2"
+        >
+          <v-img
+            v-if="item.attorneyAvatar"
+            :src="item.attorneyAvatar"
+          />
+          <v-avatar
+            v-else
+            color="secondary_light"
+          >
+            <span
+              v-if="item.attorneyFirstName"
+              class="white--text"
+            >{{ item.attorneyFirstName.charAt(0)
+            }}{{ item.attorneyLastName.charAt(0) }}</span>
+            <span
+              v-else
+              class="white--text"
+            >PR</span>
           </v-avatar>
         </v-avatar>
-        <span v-if="item.attorneyId"
-          >{{ item.attorneyfirstName.charAt(0) }}.
-          {{ item.attorneylastName }}</span
-        >
+        <span
+          v-if="item.attorneyId"
+        >{{ item.attorneyfirstName.charAt(0) }}.
+          {{ item.attorneylastName }}</span>
         <span v-else>Pro Se</span>
       </template>
 
@@ -127,7 +158,7 @@
         </div>
       </template>
 
-      <template v-slot:[`item.hearingDate`]="{ item }">
+      <template v-slot:[`item.hearingDate`]="{}">
         <div>{{ "Pending" }}</div>
       </template>
 
@@ -138,14 +169,16 @@
           {{ getInitialSuitAmount(item) }}
         </div>
         <div>
-          <span class="font-weight-medium">Current: </span
-          >{{ changeNumToCurrency(item.currentSuitAmount) }}
+          <span class="font-weight-medium">Current: </span>{{ changeNumToCurrency(item.currentSuitAmount) }}
         </div>
       </template>
 
       <template v-slot:[`item.status`]="{ item }">
         <div>{{ item.status }}</div>
-        <div v-if="item.subStatus" class="font-italic">
+        <div
+          v-if="item.subStatus"
+          class="font-italic"
+        >
           {{ item.subStatus }}
         </div>
         <div class="lighter-blue">
@@ -154,9 +187,15 @@
       </template>
 
       <template v-slot:[`item.action`]="{ item }">
-        <span v-for="action in item.actions" :key="action.actionId">
+        <span
+          v-for="action in item.actions"
+          :key="action.actionId"
+        >
           <div>
-            <a href="#" @click.stop="actionDecision(action, item)">{{
+            <a
+              href="#"
+              @click.stop="actionDecision(action, item)"
+            >{{
               action.Name
             }}</a>
           </div>
@@ -175,18 +214,27 @@
           :colspan="headers.length"
         >
           <v-row no-gutters>
-            <v-col cols="5" class="d-flex align-center">
+            <v-col
+              cols="5"
+              class="d-flex align-center"
+            >
               <div class="primary--text caption font-weight-bold pr-4">
                 STATUS
               </div>
               <div class="font-weight-medium pr-2">
                 {{ item.status
-                }}<span v-if="item.statusType" class="px-2">|</span>
+                }}<span
+                  v-if="item.statusType"
+                  class="px-2"
+                >|</span>
                 <span v-if="item.statusType">{{ item.statusType }}: </span>
               </div>
               {{ item.statusDate }}
             </v-col>
-            <v-col cols="5" class="d-flex align-center">
+            <v-col
+              cols="5"
+              class="d-flex align-center"
+            >
               <div class="primary--text caption font-weight-bold pr-4">
                 ACTION
               </div>
@@ -196,7 +244,10 @@
                     ? item.actions[0].name
                     : "pending"
                 }}
-                <span v-if="item.statusDate" class="px-2">|</span>
+                <span
+                  v-if="item.statusDate"
+                  class="px-2"
+                >|</span>
                 <span v-if="item.statusType">{{ item.statusType }}: </span>
               </div>
               {{ item.statusDate }}
@@ -256,7 +307,11 @@
       </template>
     </v-data-table>
 
-    <v-dialog v-model="dialogOpen" value="''" :max-width="maxWidth">
+    <v-dialog
+      v-model="dialogOpen"
+      value="''"
+      :max-width="maxWidth"
+    >
       <component
         :is="dynamicDialog"
         :dialog-case="dialogCase"
@@ -492,7 +547,6 @@ export default {
     },
 
     getInitialSuitAmount(item) {
-      console.log(item);
       let totalMoney = 0;
       [
         "lateCharges",
@@ -500,8 +554,14 @@ export default {
         "fees",
         "otherCharges",
         "pastDueRent",
+        "legalFees",
       ].forEach((property) => {
-        totalMoney += this.calculateTotal(JSON.parse(item[property]));
+        try {
+          if (item[property] === null || item[property] === undefined) return;
+          totalMoney += this.calculateTotal(JSON.parse(item[property]));
+        } catch (e) {
+          return e;
+        }
       });
 
       return this.changeNumToCurrency(totalMoney);

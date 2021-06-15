@@ -8,17 +8,26 @@
     >
       <v-icon>mdi-close</v-icon>
     </v-btn>
-    <div style="width: 80%" class="pt-10 pb-4 mx-auto text-left">
+    <div
+      style="width: 80%"
+      class="pt-10 pb-4 mx-auto text-left"
+    >
       <div class="custom-title pt-8 pb-4">
         {{ $route.query.addUnit ? "Add Unit." : "Select Property." }}
       </div>
-      <div v-if="$route.query.addUnit" class="pb-12">
+      <div
+        v-if="$route.query.addUnit"
+        class="pb-12"
+      >
         We’ve simplified the process for you. If you previously added a property
         containing a unit, search for the property address below and add the new
         unit number. We’ll copy the existing property information to the new
         unit.
       </div>
-      <div v-else class="pb-12">
+      <div
+        v-else
+        class="pb-12"
+      >
         These are all the properties we currently have on file for you. Select
         the one from which you’d like to evict the tenants.
       </div>
@@ -39,7 +48,10 @@
           style="border-radius: 20px"
         />
         <vue-scroll :ops="ops">
-          <v-list v-show="!loading" style="background-color: transparent">
+          <v-list
+            v-show="!loading"
+            style="background-color: transparent"
+          >
             <v-list-item-group
               v-if="allProperties.length > 0"
               v-model="chosenProperty"
@@ -56,13 +68,19 @@
                 }}</span>
               </v-list-item>
             </v-list-item-group>
-            <v-list-item v-else class="py-1">
+            <v-list-item
+              v-else
+              class="py-1"
+            >
               <span class="secondary--text">No property found.</span>
             </v-list-item>
           </v-list>
         </vue-scroll>
       </div>
-      <div v-if="noPropertyError" class="error-message mt-4">
+      <div
+        v-if="noPropertyError"
+        class="error-message mt-4"
+      >
         Select a property.
       </div>
 
@@ -83,8 +101,13 @@
           border-radius: 20px;
         "
       >
-        <div class="pr-4">Add Unit/Apt. #</div>
-        <v-text-field v-model="unitNo" hide-details />
+        <div class="pr-4">
+          Add Unit/Apt. #
+        </div>
+        <v-text-field
+          v-model="unitNo"
+          hide-details
+        />
       </v-sheet>
     </div>
     <v-card-actions

@@ -30,18 +30,32 @@
         <p class="overline info--text font-weight-bold mb-0">
           NON-PAYMENT OF RENT
         </p>
-        <p class="spaced-text secondary--text mb-6">Property</p>
+        <p class="spaced-text secondary--text mb-6">
+          Property
+        </p>
         <side-list :items="steps" />
       </v-col>
     </v-row>
-    <v-dialog v-model="previewDialog" value="''" max-width="900">
+    <v-dialog
+      v-model="previewDialog"
+      value="''"
+      max-width="900"
+    >
       <dialog-template @close="previewDialog = false">
         <pdf-viewer :src="pdf" />
       </dialog-template>
     </v-dialog>
 
-    <v-dialog v-model="cancelDialog" persistent value="''" max-width="600">
-      <cancel-dialog @close="cancelDialog = false" @submit="cancelForm" />
+    <v-dialog
+      v-model="cancelDialog"
+      persistent
+      value="''"
+      max-width="600"
+    >
+      <cancel-dialog
+        @close="cancelDialog = false"
+        @submit="cancelForm"
+      />
     </v-dialog>
     <!-- <bottom-bar :progress="progress" @preview="preview" v-if="step !== 0" /> -->
   </div>

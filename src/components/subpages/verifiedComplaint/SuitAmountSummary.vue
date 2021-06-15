@@ -9,20 +9,36 @@
       <v-icon>mdi-close</v-icon>
     </v-btn>
 
-    <div style="width: 80%" class="pt-10 pb-4 mx-auto text-left">
-      <div class="custom-title pt-8 pb-4">Summary of Suit Amount</div>
+    <div
+      style="width: 80%"
+      class="pt-10 pb-4 mx-auto text-left"
+    >
+      <div class="custom-title pt-8 pb-4">
+        Summary of Suit Amount
+      </div>
       <div class="pb-6">
         Based on the information provided, these are the total amounts due, to
         be added to your suit and requested in the Verified Complaint. Review
         carefully and confirm each amount, edit or delete.
       </div>
     </div>
-    <v-container v-for="item in items" :key="item.name" fluid class="pa-0 mb-4">
-      <v-row no-gutters justify-center>
+    <v-container
+      v-for="item in items"
+      :key="item.name"
+      fluid
+      class="pa-0 mb-4"
+    >
+      <v-row
+        no-gutters
+        justify-center
+      >
         <v-col class="d-flex justify-center">
           <!-- <v-checkbox v-model="item.completed" large class="primary-checkbox" off-icon="mdi-checkbox-blank-circle-outline" on-icon="mdi-check-circle">
                   </v-checkbox> -->
-          <checkbox v-model="item.completed" style="margin-top: 70px" />
+          <checkbox
+            v-model="item.completed"
+            style="margin-top: 70px"
+          />
         </v-col>
         <v-col cols="10">
           <v-container>
@@ -73,19 +89,31 @@
                   </div>
                 </v-col>
               </v-row>
-              <v-row v-for="row in item.amounts" :key="row.dates">
-                <v-col cols="6" class="py-1">
-                  <div class="text-left pl-8" style="font-size: 0.9rem">
+              <v-row
+                v-for="row in item.amounts"
+                :key="row.dates"
+              >
+                <v-col
+                  cols="6"
+                  class="py-1"
+                >
+                  <div
+                    class="text-left pl-8"
+                    style="font-size: 0.9rem"
+                  >
                     {{
                       item.name === "Past Due Rent"
                         ? row.timePeriodDisplay
                         : row.type
-                        ? row.type
-                        : row.title
+                          ? row.type
+                          : row.title
                     }}
                   </div>
                 </v-col>
-                <v-col cols="3" class="py-1">
+                <v-col
+                  cols="3"
+                  class="py-1"
+                >
                   <div
                     class="text-right font-weight-medium"
                     style="font-size: 0.9rem"
@@ -99,7 +127,12 @@
           </v-container>
         </v-col>
         <v-col class="d-flex justify-center">
-          <v-menu offset-y bottom left open-on-hover>
+          <v-menu
+            offset-y
+            bottom
+            left
+            open-on-hover
+          >
             <template v-slot:activator="{ on }">
               <v-btn
                 style="margin-top: 70px"
@@ -120,7 +153,12 @@
                             style="font-size: 20px"
                             :class="`icofont-search-document pr-4`"
                           ></i> -->
-                  <v-icon color="info" class="pr-4"> $pencil </v-icon>
+                  <v-icon
+                    color="info"
+                    class="pr-4"
+                  >
+                    $pencil
+                  </v-icon>
                   EDIT
                 </v-list-item-title>
               </v-list-item>
@@ -195,6 +233,8 @@ export default {
     otherCharges: Array,
     mileagePrice: String,
     property: Object,
+    legalFees: Array,
+    legalFeesPermitted: Boolean,
   },
   data() {
     return {
@@ -215,18 +255,9 @@ export default {
           ],
         },
         {
-          name: "Legal Fees",
-          total: 30 + this.calculateLegalTotal(),
-          amounts: [
-            {
-              title: "Filing Fees",
-              amount: "30.00",
-            },
-            {
-              title: "Mileage Fees",
-              amount: this.calculateLegalTotal(),
-            },
-          ],
+          name: this.legalFeesPermitted ? "Legal Fees" : "Court Fees",
+          total: this.calculateLegalTotal(),
+          amounts: this.legalFees,
         },
       ],
       open: "",
@@ -254,7 +285,12 @@ export default {
       // this.$emit("update:data", { confirmation: this.statements });
       this.$emit("create:preview");
       this.$emit("update", {
-        data: {},
+        data: {
+          // fees: [
+          //   { amount: 30, type: "filing" },
+          //   { amount: this.mileagePrice, type: "mileage" },
+          // ],
+        },
         steps: { suitSummary: "completed" },
       });
       this.$router.push({ name: "vc-filing" });
@@ -309,7 +345,7 @@ export default {
     calculateLegalTotal() {
       // const propertyCity = this.$store.getters.allCitiesAndSubs.find(city => city.name == this.property.city);
       // return propertyCity ? propertyCity.mileagePrice : 0;
-      return this.mileagePrice;
+      return this.calculateTotal(this.legalFees);
     },
   },
 };

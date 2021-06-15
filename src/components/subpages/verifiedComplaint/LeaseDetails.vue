@@ -103,38 +103,38 @@
           Lease Start Date
         </div>
         <div>
-        <v-menu
-          v-model="menu"
-          :close-on-content-click="false"
-          :nudge-right="40"
-          transition="scale-transition"
-          offset-y
-          min-width="290px"
-        >
-          <template v-slot:activator="{ on }">
-            <v-text-field
-              v-model="leaseStartDateConverted"
-              append-icon="$calendar"
-              color="accent"
-              readonly
-              rounded
-              solo
-              flat
-              dense
-              background-color="#F0F5F6"
-              v-on="on"
-              @click:append="menu = true"
+          <v-menu
+            v-model="menu"
+            :close-on-content-click="false"
+            :nudge-right="40"
+            transition="scale-transition"
+            offset-y
+            min-width="290px"
+          >
+            <template v-slot:activator="{ on }">
+              <v-text-field
+                v-model="leaseStartDateConverted"
+                append-icon="$calendar"
+                color="accent"
+                readonly
+                rounded
+                solo
+                flat
+                dense
+                background-color="#F0F5F6"
+                v-on="on"
+                @click:append="menu = true"
+              />
+            </template>
+            <v-date-picker
+              v-model="leaseStartDate"
+              no-title
+              :show-current="false"
+              color="primary"
+              class="custom-date"
+              @input="menu = false"
             />
-          </template>
-          <v-date-picker
-            v-model="leaseStartDate"
-            no-title
-            :show-current="false"
-            color="primary"
-            class="custom-date"
-            @input="menu = false"
-          />
-        </v-menu>
+          </v-menu>
         </div>
         <div v-if="!isSection8">
           <div class="font-weight-medium secondary--text pb-2">

@@ -43,7 +43,7 @@
           depressed
           @click="
             () => {
-              legalFeesPermitted = 'no';
+              legalFeesPermitted = false;
               next();
             }
           "
@@ -59,7 +59,7 @@
           depressed
           @click="
             () => {
-              legalFeesPermitted = 'yes';
+              legalFeesPermitted = true;
               next();
             }
           "
@@ -155,14 +155,25 @@ export default {
   props: {
     tenants: Array,
     attorney: Number,
+    mileagePrice: String,
   },
   data() {
     return {
-      legalFeesPermitted: "",
+      legalFeesPermitted: false,
       dialogProps: {},
       costsDialog: false,
       addFeeDialog: false,
       categories: [
+        {
+          type: "Filing Fee",
+          amount: "30.00",
+          selected: this.legalFeesPermitted,
+        },
+        {
+          type: "Mileage Fee",
+          amount: this.mileagePrice,
+          selected: this.legalFeesPermitted,
+        },
         // {
         //   title: 'Attorney Fees',
         //   costs: [{
@@ -172,41 +183,30 @@ export default {
         //     cost: '600.00'
         //   },]
         // },
-        {
-          title: "Court Costs",
-          costs: [
-            {
-              name: "Filing Fee",
-              timePeriod: "03.23.2020",
-              timePeriodDisplay: "03.23.2020",
-              cost: "40.00",
-            },
-            {
-              name: "Service Fee",
-              timePeriod: "03.23.2020",
-              timePeriodDisplay: "03.23.2020",
-              cost: "30.00",
-            },
-            {
-              name: "Copies",
-              timePeriod: "03.23.2020",
-              timePeriodDisplay: "03.23.2020",
-              cost: "10.00",
-            },
-          ],
-        },
-        {
-          title: "Software",
-          total: "60.00",
-          costs: [
-            {
-              name: "General",
-              timePeriod: "03.23.2020",
-              timePeriodDisplay: "03.23.2020",
-              cost: "60.00",
-            },
-          ],
-        },
+        // {
+        //   title: "Court Costs",
+        //   costs: [
+
+        //     // {
+        //     //   name: "Copies",
+        //     //   timePeriod: "03.23.2020",
+        //     //   timePeriodDisplay: "03.23.2020",
+        //     //   cost: "10.00",
+        //     // },
+        //   ],
+        // },
+        // {
+        //   title: "Software",
+        //   total: "60.00",
+        //   costs: [
+        //     {
+        //       name: "General",
+        //       timePeriod: "03.23.2020",
+        //       timePeriodDisplay: "03.23.2020",
+        //       cost: "60.00",
+        //     },
+        //   ],
+        // },
       ],
     };
   },
@@ -223,19 +223,19 @@ export default {
     },
   },
   mounted() {
-    if (this.attorney) {
-      this.categories.unshift({
-        title: "Attorney Fees",
-        costs: [
-          {
-            name: "General",
-            timePeriod: "03.23.2020",
-            timePeriodDisplay: "03.23.2020",
-            cost: "600.00",
-          },
-        ],
-      });
-    }
+    // if (this.attorney) {
+    //   this.categories.unshift({
+    //     title: "Attorney Fees",
+    //     costs: [
+    //       {
+    //         name: "General",
+    //         timePeriod: "03.23.2020",
+    //         timePeriodDisplay: "03.23.2020",
+    //         cost: "600.00",
+    //       },
+    //     ],
+    //   });
+    // }
   },
   activated() {
     window.scrollTo(0, 0);
@@ -245,7 +245,10 @@ export default {
       this.$emit("update", {
         data: {
           legalFeesPermitted: this.legalFeesPermitted,
-          legalFees: this.categories,
+          legalFees: this.categories.map((legal) => {
+            legal.selected = this.legalFeesPermitted;
+            return legal;
+          }),
         },
         steps: { legalFees: "completed" },
       });
